@@ -19,7 +19,7 @@ public class MyActivity extends ActionBarActivity {
     private ActionBarDrawerToggle drawerToggle;
     private ListView leftDrawerList;
     private ArrayAdapter<String> navigationDrawerAdapter;
-    private String[] leftSliderData = {"Home", "Android", "Sitemap", "About", "Contact Me"};
+    private String[] leftSliderData = {"Calendar", "Schedule", "Sharing", "Requests", "Settings"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,10 +27,13 @@ public class MyActivity extends ActionBarActivity {
         setContentView(R.layout.activity_my);
         nitView();
         if (toolbar != null) {
-            toolbar.setTitle("Navigation Drawer");
+            toolbar.setTitle("ShuffleBoard");
             setSupportActionBar(toolbar);
         }
         initDrawer();
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar); // Attaching the layout to the toolbar object
+        setSupportActionBar(toolbar);                   // Setting toolbar as the ActionBar with setSupportActionBar() call
     }
 
     private void nitView() {

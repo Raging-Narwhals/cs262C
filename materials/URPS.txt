@@ -1,1 +1,13 @@
 These are the non-functional requirements for ShuffleBoard.
+
+The app shall run on Android.
+The user will install through their app store.
+A beginning user should be able to create their schedule easily.
+Information such as FAQs and documentation will be provided and accessible to users.
+The user should be able to see their schedule on start-up.
+The system should remember the user's entered schedule even after possible crashes.
+The system should remember the other users the user has shared their schedule with.
+ShuffleBoard should start-up in at least three seconds.
+The app will be maintained by the Raging Narwhals at least until the semester is over.
+The system should know the difference between static and dynamic events.
+The user must have a schedule with dynamic events before being able to shuffle.

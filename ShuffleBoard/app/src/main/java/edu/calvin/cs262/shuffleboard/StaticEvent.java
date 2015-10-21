@@ -28,7 +28,6 @@ public class StaticEvent {
 
     /*
      * Getters and setters
-     * TODO change "return -1" to throwing exceptions
      */
 
     // Return the startTime
@@ -37,13 +36,13 @@ public class StaticEvent {
     }
 
     // Set startTime if new value is [0,48] and startTime < stopTime
-    public int setStartTime(int start) {
+    public int setStartTime(int start) throws Exception {
         if (start >= stopTime && 0 <= start && start <= 48) {
             startTime = start;
             return startTime;
         }
         else {
-            return -1;  // TODO make this an exception
+            throw new EventException("StaticEvent setStartTime(): Invalid start time: " + start);
         }
     }
 
@@ -53,13 +52,13 @@ public class StaticEvent {
     }
 
     // Set stopTime if new value is [0-48] and startTime > stopTime
-    public int setStopTime(int stop) {
+    public int setStopTime(int stop) throws Exception{
         if (stop <= startTime  && 0 <= stop && stop <= 48) {
             stopTime = stop;
             return stopTime;
         }
         else {
-            return -1;  // TODO make this an exception
+            throw new EventException("StaticEvent setStopTime(): Invalid stop time " + stop);
         }
     }
 
@@ -81,10 +80,9 @@ public class StaticEvent {
     }
 
     // Set the days that the event is on
-    public boolean[] setDays(int[] day) {
+    public boolean[] setDays(int[] day) throws Exception{
         if (day.length == 0) {
-            // TODO change this to throwing exception
-            return days;
+            throw new EventException("StaticEvent setDays(): Cannot set using empty day vector");
         }
         else if (day.length == days.length) {
             for (int i = 0; i < day.length; i++) {
@@ -92,16 +90,16 @@ public class StaticEvent {
                 return days;
             }
         }
-        // TODO Change this to throwing exception
-        return days;
+        throw new EventException("StaticEvent setDays(): day vector incorrect length " + day.length);
     }
 
     // Set whether an event is scheduled for a specific day
-    public boolean setDay(int day, boolean setTo) {
+    public boolean setDay(int day, boolean setTo) throws Exception{
         if ( 0 <= day && day <= 6) {
             days[day] = setTo;
+            return days[day];
         }
-        return days[day];
+        throw new EventException("StaticEvent setDay(): Invalid day " + day);
     }
 
 }

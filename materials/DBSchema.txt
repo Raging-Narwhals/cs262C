@@ -1,0 +1,21 @@
+Table for user information
+Users ( ID int auto-increment, name varchar(31), passwordHash varchar(31), PRIMARY KEY (ID) );
+
+Table for information regarding who is friends with who
+Friends ( userID int REFERENCES Users.ID, friendID int REFERENCES Users.ID PRIMARY KEY( userID, friendID) );
+
+The following tables could be deleted and re-made each week?
+
+Table for information in common between StaticEvents of a user
+StaticEvents ( ID int auto-increment, userID int REFERENCES Users.ID, startTime int,
+	stopTime int, PRIMARY KEY ( ID ) );
+
+Table for information that is specific to each StaticEvent
+StaticDays ( staticID int REFERENCES StaticEvents.ID, day int, PRIMARY KEY ( staticID, day ) );
+
+Table for information in common between DynamicEvents of a user
+DynamicEvents ( ID int auto-increment, userID int REFERENCES Users.ID, timesPerWeek int,
+	length int, PRIMARY KEY ( ID ) );
+
+Table for information that is specific to each DynamicEvent
+DynamicDays ( dynamicID int REFERENCES DynamicEvents.ID, day int, start int, stop int );

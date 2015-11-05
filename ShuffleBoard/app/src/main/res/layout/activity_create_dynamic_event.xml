@@ -29,7 +29,7 @@
         android:inputType="number"
         android:ems="10"
         android:id="@+id/editText2"
-        android:hint="Start Time"
+        android:hint="Times Per Week"
         android:layout_below="@+id/editText"
         android:layout_alignParentStart="true"
         android:layout_marginTop="20dp"
@@ -41,7 +41,7 @@
         android:inputType="number"
         android:ems="10"
         android:id="@+id/editText3"
-        android:hint="End Time"
+        android:hint="Duration"
         android:layout_alignTop="@+id/editText2"
         android:layout_alignParentEnd="true"
         android:layout_marginRight="30dp" />
@@ -65,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:text="Sunday"
                 android:id="@+id/checkBox"
-                android:checked="false"
+                android:checked="true"
                 android:layout_marginLeft="20dp" />
 
             <CheckBox
@@ -73,7 +73,7 @@
                 android:layout_height="wrap_content"
                 android:text="Thursday"
                 android:id="@+id/checkBox5"
-                android:checked="false"
+                android:checked="true"
                 android:layout_marginLeft="20dp" />
         </TableRow>
 
@@ -88,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:text="Monday"
                 android:id="@+id/checkBox2"
-                android:checked="false"
+                android:checked="true"
                 android:layout_marginLeft="20dp" />
 
             <CheckBox
@@ -96,7 +96,7 @@
                 android:layout_height="wrap_content"
                 android:text="Friday"
                 android:id="@+id/checkBox6"
-                android:checked="false"
+                android:checked="true"
                 android:layout_marginLeft="20dp" />
         </TableRow>
 
@@ -111,7 +111,7 @@
                 android:layout_height="wrap_content"
                 android:text="Tuesday"
                 android:id="@+id/checkBox3"
-                android:checked="false"
+                android:checked="true"
                 android:layout_marginLeft="20dp" />
 
             <CheckBox
@@ -119,7 +119,7 @@
                 android:layout_height="wrap_content"
                 android:text="Saturday"
                 android:id="@+id/checkBox7"
-                android:checked="false"
+                android:checked="true"
                 android:layout_marginLeft="20dp" />
         </TableRow>
 
@@ -134,12 +134,13 @@
                 android:layout_height="wrap_content"
                 android:text="Wednesday"
                 android:id="@+id/checkBox4"
-                android:checked="false"
+                android:checked="true"
                 android:layout_marginLeft="20dp" />
 
         </TableRow>
 
     </TableLayout>
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

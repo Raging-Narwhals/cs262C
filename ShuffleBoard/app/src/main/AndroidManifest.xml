@@ -19,6 +19,10 @@
         <activity
             android:name=".CreateStaticEvent"
             android:label="@string/title_activity_create_static_event" />
+        <activity
+            android:name=".CreateDynamicEvent"
+            android:label="@string/title_activity_create_dynamic_event" >
+        </activity>
     </application>
 
 </manifest>

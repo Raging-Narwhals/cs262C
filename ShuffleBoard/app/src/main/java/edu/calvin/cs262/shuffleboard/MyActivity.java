@@ -1,5 +1,6 @@
 package edu.calvin.cs262.shuffleboard;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -10,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 public class MyActivity extends ActionBarActivity {
@@ -19,7 +21,10 @@ public class MyActivity extends ActionBarActivity {
     private ActionBarDrawerToggle drawerToggle;
     private ListView leftDrawerList;
     private ArrayAdapter<String> navigationDrawerAdapter;
-    private String[] leftSliderData = {"Calendar", "Schedule", "Sharing", "Requests", "Settings"};
+    private String[] leftSliderData = {"", "Calendar", "Schedule", "Sharing", "Requests", "Settings"};
+
+    //TODO remove the following variables when creating events works
+    Button createStaticEventButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +39,19 @@ public class MyActivity extends ActionBarActivity {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar); // Attaching the layout to the toolbar object
         setSupportActionBar(toolbar);                   // Setting toolbar as the ActionBar with setSupportActionBar() call
+
+        //TODO remove this when creating static events has its actual button
+        createStaticEventButton = (Button) findViewById(R.id.createStaticTemp);
+
+        // Switch button click event to toggle flash on/off
+        createStaticEventButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(v.getContext(), CreateStaticEvent.class);
+                startActivityForResult(myIntent, 0);
+            }
+        });
     }
 
     private void nitView() {

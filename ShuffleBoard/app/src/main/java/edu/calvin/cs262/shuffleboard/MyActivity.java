@@ -55,7 +55,7 @@ public class MyActivity extends ActionBarActivity {
     }
 
     private void nitView() {
-        leftDrawerList = (ListView) findViewById(R.id.left_drawer);
+        leftDrawerList = (ListView) findViewById(R.id.nav_drawer);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         navigationDrawerAdapter=new ArrayAdapter<String>( MyActivity.this, android.R.layout.simple_list_item_1, leftSliderData);

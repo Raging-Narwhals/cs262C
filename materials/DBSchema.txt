@@ -1,21 +1,38 @@
-Table for user information
-Users ( ID int auto-increment, name varchar(31), passwordHash varchar(31), PRIMARY KEY (ID) );
+-- Table for user information
+CREATE TABLE Users ( ID int auto-increment, name varchar(31), passwordHash varchar(31), PRIMARY KEY (ID) );
 
-Table for information regarding who is friends with who
-Friends ( userID int REFERENCES Users.ID, friendID int REFERENCES Users.ID PRIMARY KEY( userID, friendID) );
+-- Table for information regarding who is friends with who
+CREATE TABLE Friends ( userID int REFERENCES Users.ID, friendID int REFERENCES Users.ID PRIMARY KEY( userID, friendID) );
 
-The following tables could be deleted and re-made each week?
+-- Table for information in common between StaticEvents of a user
+CREATE TABLE StaticEvents ( ID int auto-increment, userID int REFERENCES Users.ID, startTime int, stopTime int, days char(7),
+	label varchar(31), PRIMARY KEY ( ID ) );
 
-Table for information in common between StaticEvents of a user
-StaticEvents ( ID int auto-increment, userID int REFERENCES Users.ID, startTime int,
-	stopTime int, PRIMARY KEY ( ID ) );
+-- Table for information in common between DynamicEvents of a user
+CREATE TABLE DynamicEvents ( ID int auto-increment, userID int REFERENCES Users.ID, timesPerWeek int, length int,
+	label varchar(31), PRIMARY KEY ( ID ) );
 
-Table for information that is specific to each StaticEvent
-StaticDays ( staticID int REFERENCES StaticEvents.ID, day int, PRIMARY KEY ( staticID, day ) );
+-- Table for information that is specific to each DynamicEvent
+CREATE TABLE DynamicDays ( dynamicID int REFERENCES DynamicEvents.ID, day int, start int, stop int );
 
-Table for information in common between DynamicEvents of a user
-DynamicEvents ( ID int auto-increment, userID int REFERENCES Users.ID, timesPerWeek int,
-	length int, PRIMARY KEY ( ID ) );
 
-Table for information that is specific to each DynamicEvent
-DynamicDays ( dynamicID int REFERENCES DynamicEvents.ID, day int, start int, stop int );
+
+
+-- Sample queries
+INSERT INTO USERS VALUES ( "Jim", "passhash1" );
+INSERT INTO USERS VALUES ( "Bill", "passhash2" );
+INSERT INTO USERS VALUES ( "Paul", "passhash3" );
+INSERT INTO USERS VALUES ( "Matt", "passhash4" );
+
+INSERT INTO Friends VALUES ( 1, 2 );
+INSERT INTO Friends VALUES ( 1, 3 );
+INSERT INTO Friends VALUES ( 2, 3 );
+INSERT INTO Friends VALUES ( 3, 4 );
+
+INSERT INTO StaticEvents VALUES ( 1, 28, 32, "Lunch", "1000100" );
+INSERT INTO StaticEvents VALUES ( 1, 16, 34, "Work", "0111010" );
+INSERT INTO StaticEvents VALUES ( 1, 38, 42, "Soccer Practice", "0010100" );
+
+INSERT INTO DynamicEvents VALUES ( 2, 2, 2, "Groceries" );
+INSERT INTO DynamicDays VALUES ( 1, 2, 34, 42 );
+INSERT INTO DynamicDays VALUES ( 1, 4, 34, 42 );

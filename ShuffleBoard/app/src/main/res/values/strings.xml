@@ -9,6 +9,8 @@
 
     <string name="title_activity_create_static_event">CreateStaticEvent</string>
     <string name="title_activity_create_dynamic_event">CreateDynamicEvent</string>
+    <string name="title_activity_dynamic_event_view">DynamicEvents</string>
+    <string name="title_activity_static_event_view">StaticEvents</string>
 
     <!-- Nav Drawer Menu Items -->
     <string-array name='nav_drawer_items'>

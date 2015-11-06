@@ -23,9 +23,7 @@ public class MyActivity extends ActionBarActivity {
     private ArrayAdapter<String> navigationDrawerAdapter;
     private String[] leftSliderData = {"", "Calendar", "Schedule", "Sharing", "Requests", "Settings"};
 
-    //TODO remove the following variables when creating events works
-    Button createStaticEventButton;
-    Button createDynamicEventButton;
+    Button goToScheduleViewTempButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,25 +39,13 @@ public class MyActivity extends ActionBarActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar); // Attaching the layout to the toolbar object
         setSupportActionBar(toolbar);                   // Setting toolbar as the ActionBar with setSupportActionBar() call
 
-        //TODO remove this when creating static events has its actual button
-        createStaticEventButton = (Button) findViewById(R.id.createStaticTemp);
-        createDynamicEventButton = (Button) findViewById(R.id.createDynamicTemp);
+        goToScheduleViewTempButton = (Button) findViewById(R.id.gotoScheduleTemp);
 
-        // Switch button click event to toggle flash on/off
-        createStaticEventButton.setOnClickListener(new View.OnClickListener() {
+        goToScheduleViewTempButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(v.getContext(), CreateStaticEvent.class);
-                startActivityForResult(myIntent, 0);
-            }
-        });
-        // Switch button click event to toggle flash on/off
-        createDynamicEventButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Intent myIntent = new Intent(v.getContext(), CreateDynamicEvent.class);
+                Intent myIntent = new Intent(v.getContext(), DynamicEventView.class);
                 startActivityForResult(myIntent, 0);
             }
         });

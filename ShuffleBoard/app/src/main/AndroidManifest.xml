@@ -21,7 +21,13 @@
             android:label="@string/title_activity_create_static_event" />
         <activity
             android:name=".CreateDynamicEvent"
-            android:label="@string/title_activity_create_dynamic_event" >
+            android:label="@string/title_activity_create_dynamic_event" />
+        <activity
+            android:name=".DynamicEventView"
+            android:label="@string/title_activity_dynamic_event_view" />
+        <activity
+            android:name=".StaticEventView"
+            android:label="@string/title_activity_static_event_view" >
         </activity>
     </application>
 

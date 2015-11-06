@@ -13,37 +13,6 @@
         android:layout_height="match_parent">
 
         <!-- activity view -->
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:background="#fff"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:layout_centerInParent="true"
-                android:layout_width="wrap_content"
-                android:textColor="#000"
-                android:id="@+id/textView"
-                android:text="Schedule View"
-                android:layout_height="wrap_content" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Create Static Event"
-                android:id="@+id/createStaticTemp"
-                android:layout_below="@+id/textView"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="60dp" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Create Dynamic Event"
-                android:id="@+id/createDynamicTemp"
-                android:layout_below="@+id/createStaticTemp"
-                android:layout_centerHorizontal="true" />
-
-        </RelativeLayout>
 
         <!-- navigation drawer -->
         <RelativeLayout
@@ -67,8 +36,30 @@
 
     </android.support.v4.widget.DrawerLayout>
 
-    <include layout="@layout/toolbar" />
+    <include layout="@layout/toolbar"
+        android:id="@+id/toolbar"
+        android:layout_alignParentStart="false"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Schedule View"
+        android:id="@+id/gotoScheduleTemp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="179dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Weekly View"
+        android:id="@+id/textView2"
+        android:layout_below="@+id/toolbar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="88dp"
+        android:password="false" />
 
 
 </RelativeLayout>

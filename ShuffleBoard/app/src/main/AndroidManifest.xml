@@ -29,6 +29,10 @@
             android:name=".StaticEventView"
             android:label="@string/title_activity_static_event_view" >
         </activity>
+        <activity
+            android:name=".ScheduleView"
+            android:label="Schedule">
+        </activity>
     </application>
 
 </manifest>

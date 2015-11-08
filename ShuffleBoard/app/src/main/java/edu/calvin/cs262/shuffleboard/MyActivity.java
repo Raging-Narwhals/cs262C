@@ -45,7 +45,7 @@ public class MyActivity extends ActionBarActivity {
 
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(v.getContext(), DynamicEventView.class);
+                Intent myIntent = new Intent(v.getContext(), ScheduleView.class);
                 startActivityForResult(myIntent, 0);
             }
         });

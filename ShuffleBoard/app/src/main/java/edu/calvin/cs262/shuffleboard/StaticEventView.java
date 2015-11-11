@@ -4,7 +4,6 @@ package edu.calvin.cs262.shuffleboard;
 /**
  * Class corresponding to the UI page for viewing static events; schedule view
  *
- * Created by Spencer Schultz on 11/6/2015.
  */
 import android.content.Intent;
 import android.os.Bundle;

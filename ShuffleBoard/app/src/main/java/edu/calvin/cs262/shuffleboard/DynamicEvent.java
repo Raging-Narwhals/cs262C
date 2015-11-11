@@ -12,6 +12,7 @@ public class DynamicEvent {
 
     int timesPerWeek;  // How many times this event should happen this week
     int length;  // How long the event is
+    String name;  // Short phrase describing the events
     int ownerID;  // The id of the owner in the database
     Vector<Triple> days;
 
@@ -99,9 +100,10 @@ public class DynamicEvent {
         days = new Vector<Triple>(0);
     }
 
-    public DynamicEvent(int numTimes, int duration, int owner, Vector<Triple> day) {
+    public DynamicEvent(int numTimes, int duration, String newName, int owner, Vector<Triple> day) {
         timesPerWeek = numTimes;
         length = duration;
+        name = newName;
         ownerID = owner;
         days = day;
     }

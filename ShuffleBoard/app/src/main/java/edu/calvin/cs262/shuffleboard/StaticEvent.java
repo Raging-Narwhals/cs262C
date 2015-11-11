@@ -11,6 +11,7 @@ public class StaticEvent {
 
     int startTime;  // Using values [0-48] with each integer being .5 hr
     int stopTime;  // Using values [0-48] with each integer being .5 hr
+    String name;  // Short phrase describing the event
     int ownerID;  // The id of the owner in the database
     boolean days[];
 
@@ -19,9 +20,10 @@ public class StaticEvent {
         days = new boolean[7];
     }
 
-    public StaticEvent(int start, int stop, int owner, boolean[] day) {
+    public StaticEvent(int start, int stop, String newName, int owner, boolean[] day) {
         startTime = start;
         stopTime = stop;
+        name = newName;
         ownerID = owner;
         days = day;
     }

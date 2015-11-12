@@ -4,6 +4,7 @@ package edu.calvin.cs262.shuffleboard;
  * to be added to the schedule.
  */
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -62,6 +63,10 @@ public class CreateStaticEvent extends AppCompatActivity {
                     newEvent = new StaticEvent(startNum, endNum, name.getText().toString(),
                             0, setDays);
                 }
+
+                // Return back to the schedule view of dynamic events
+                Intent myIntent = new Intent(v.getContext(), StaticEventView.class);
+                startActivityForResult(myIntent, 0);
             }
         });
     }

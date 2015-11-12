@@ -1,5 +1,10 @@
 package edu.calvin.cs262.shuffleboard;
 
+/**
+ * Main activity of the ShuffleBoard application
+ *  Defines the functions involved with the main UI component of the application
+ */
+
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.v4.widget.DrawerLayout;

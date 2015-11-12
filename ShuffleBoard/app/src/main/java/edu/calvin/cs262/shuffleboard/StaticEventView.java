@@ -22,10 +22,14 @@ public class StaticEventView extends AppCompatActivity {
 
 
     //Hard-coded data for demo, delete once data creation and storing is implemented
-    String tempEvent1 = "Soccer Practice \n4:00PM - 5:00PM \nOn: Monday, Wednesday, Friday";
-    String tempEvent2 = "Unicycle Club \n7:00PM - 9:00PM \nOn: Tuesday";
-    String tempEvent3 = "Tutoring \n11:00AM - 12:30PM || \nMonday, Thursday";
-    String[] tempEvents = {tempEvent1, tempEvent2, tempEvent3};
+    boolean[] temp1days = {false,true,false,true,false,true,false};
+    StaticEvent temp1 = new StaticEvent(32, 34, "Soccer Practice", 0, temp1days);
+    boolean[] temp2days = {false,false,true,false,false,false,false};
+    StaticEvent temp2 = new StaticEvent(38, 42, "Unicycle Club", 0, temp2days);
+    boolean[] temp3days = {false,true,false,false,true,false,false};
+    StaticEvent temp3 = new StaticEvent(22, 25, "Tutoring", 0, temp3days);
+
+    String[] temps = {temp1.toString(), temp2.toString(), temp3.toString()};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +65,7 @@ public class StaticEventView extends AppCompatActivity {
                 ArrayAdapter<String>(
                 this,
                 android.R.layout.simple_list_item_1,
-                tempEvents);
+                temps);
         listView.setAdapter(myAdapter);
 
     }

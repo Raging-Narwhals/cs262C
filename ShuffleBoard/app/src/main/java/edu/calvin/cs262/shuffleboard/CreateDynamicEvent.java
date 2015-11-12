@@ -1,5 +1,9 @@
 package edu.calvin.cs262.shuffleboard;
 
+/** CreateDynamicEvent defines the methods involved with validating and creating new dynamic events
+ * to be added to the schedule.
+ */
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;

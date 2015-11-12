@@ -6,7 +6,6 @@ import java.util.Vector;
  * Defines the DynamicEvent class
  *   Events that are not set and can be shuffled
  *
- * Created by JStay on 10/18/2015.
  */
 public class DynamicEvent {
 

@@ -1,6 +1,6 @@
 package edu.calvin.cs262.shuffleboard;
 
-/* CreateStaticEvent defines the methods involved with validating and creating new static events
+/** CreateStaticEvent defines the methods involved with validating and creating new static events
  * to be added to the schedule.
  */
 
@@ -66,6 +66,10 @@ public class CreateStaticEvent extends AppCompatActivity {
         });
     }
 
+    /* Validates a time slot
+     * @param startNum: an integer value 0-46 representing the beginning of the event
+     * @param endNum: an integer value 1-47 representing the end of the event
+     */
     public boolean validate(int startNum, int endNum) {
         if (name.getText()!=name.getHint())
         {

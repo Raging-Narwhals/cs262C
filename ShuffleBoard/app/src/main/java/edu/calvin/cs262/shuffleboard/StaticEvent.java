@@ -3,8 +3,6 @@ package edu.calvin.cs262.shuffleboard;
 /**
  * Defines the StaticEvent class
  *   Events that are set in a schedule and must not be affected by shuffling
- *
- * Created by JStay on 10/16/2015.
  */
 
 public class StaticEvent {
@@ -14,6 +12,7 @@ public class StaticEvent {
     String name;  // Short phrase describing the event
     int ownerID;  // The id of the owner in the database
     boolean days[];
+    String[] dayNames = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
 
     public StaticEvent() {
         startTime = stopTime = ownerID = 0;
@@ -102,6 +101,28 @@ public class StaticEvent {
             return days[day];
         }
         throw new EventException("StaticEvent setDay(): Invalid day " + day);
+    }
+
+    public String toString() {
+        String ret = name + "\n";
+        ret += (startTime>24) ? toTime(startTime-24) + "PM" : toTime(startTime) + "AM";
+        ret += " - ";
+        ret += (stopTime>23) ? toTime(stopTime-24) + "PM\n" : toTime(stopTime) + "AM\n";
+        for (int i=0; i<=6; i++) {
+            ret += (days[i] ? dayNames[i] + ", " : "");
+        }
+        ret = ret.substring(0,ret.length()-2);
+        return ret;
+    }
+
+    public String toTime(int time) {
+        String ret = "";
+        boolean halfHour = (time%2==1);
+        ret += halfHour ? Integer.toString((time-1)/2) + ":30" : Integer.toString(time/2) + ":00";
+        if (ret.charAt(0)=='0') {
+            ret = "12" + ret.substring(1, ret.length());
+        }
+        return ret;
     }
 
 }

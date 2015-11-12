@@ -22,10 +22,12 @@ public class DynamicEventView extends AppCompatActivity {
 
 
     //Hard-coded data for demo, delete once data creation and storing is implemented
-    String tempEvent1 = "Grading \nDuration: 1 Hour \nTimes Per Week: 2";
-    String tempEvent2 = "Work out \nDuration: 0.5 Hour \nTimes Per Week: 3";
-    String tempEvent3 = "Slay Bears \nDuration: 1.5 Hour \nTimes Per Week: 1";
-    String[] tempEvents = {tempEvent1, tempEvent2, tempEvent3};
+    DynamicEvent temp1 = new DynamicEvent(2, 1, "Grading", 0);
+    DynamicEvent temp2 = new DynamicEvent(3, 0.5, "Work Out", 0);
+    DynamicEvent temp3 = new DynamicEvent(1, 1.5, "Slay Bears", 0);
+
+    String[] temps = {temp1.toString(), temp2.toString(), temp3.toString()};
+
 
 
     @Override
@@ -62,7 +64,7 @@ public class DynamicEventView extends AppCompatActivity {
                 ArrayAdapter<String>(
                 this,
                 android.R.layout.simple_list_item_1,
-                tempEvents);
+                temps);
         listView.setAdapter(myAdapter);
 
     }

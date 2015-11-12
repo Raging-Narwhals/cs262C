@@ -10,17 +10,26 @@ import java.util.Vector;
 public class DynamicEvent {
 
     int timesPerWeek;  // How many times this event should happen this week
-    int length;  // How long the event is
+    double length;  // How long the event is
     String name;  // Short phrase describing the events
     int ownerID;  // The id of the owner in the database
     Vector<Triple> days;
+    String[] dayNames = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
 
     public DynamicEvent() {
-        timesPerWeek = length = ownerID = 0;
+        timesPerWeek = ownerID = 0;
+        length = 0;
         days = new Vector<Triple>(0);
     }
 
-    public DynamicEvent(int numTimes, int duration, String newName, int owner, Vector<Triple> day) {
+    public DynamicEvent(int numTimes, double duration, String newName, int owner) {
+        timesPerWeek = numTimes;
+        length = duration;
+        name = newName;
+        ownerID = owner;
+    }
+
+    public DynamicEvent(int numTimes, double duration, String newName, int owner, Vector<Triple> day) {
         timesPerWeek = numTimes;
         length = duration;
         name = newName;
@@ -118,4 +127,21 @@ public class DynamicEvent {
         }
     }
 
+    public String toString() {
+        String ret = name + "\n";
+        ret += "Duration: " + Double.toString(length) + (length==1 ? " hour\n" : " hours\n");
+        ret += "Times Per Week: " + Integer.toString(timesPerWeek);
+        // TODO make this work when using db queries
+        // Also add a newline to the end of "Times per week"
+        /*boolean[] onDay = new boolean[7];
+        for (int i=0; i<days.size(); i++) {
+            //ret += (days.elementAt(i) ? dayNames[i] + ", " : "");
+            onDay[days.elementAt(i).day] = true;
+        }
+        for (int i=0; i<=6; i++) {
+            ret += (onDay[i] ? dayNames[i] + ", " : "");
+        }
+        ret = ret.substring(0,ret.length()-2);*/
+        return ret;
+    }
 }

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_first_fragment"
+            android:title="Calendar"
+            android:checked="true"/>
+        <item
+            android:id="@+id/nav_second_fragment"
+            android:title="Schedule" />
+    </group>
+
+    <item android:title="Sharing">
+        <menu>
+            <item
+                android:title="Add Person" />
+            <item
+                android:title="Requests" />
+        </menu>
+    </item>
+</menu>

@@ -18,7 +18,7 @@
         android:layout_width="240dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:id="@+id/editText"
+        android:id="@+id/name"
         android:hint="Name of Event"
         android:gravity="center_horizontal"
         android:layout_below="@+id/textView"
@@ -29,9 +29,9 @@
         android:layout_height="wrap_content"
         android:inputType="number"
         android:ems="10"
-        android:id="@+id/editText2"
+        android:id="@+id/timesPerWeek"
         android:hint="Times Per Week"
-        android:layout_below="@+id/editText"
+        android:layout_below="@+id/name"
         android:layout_alignParentStart="true"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp" />
@@ -41,16 +41,16 @@
         android:layout_height="wrap_content"
         android:inputType="number"
         android:ems="10"
-        android:id="@+id/editText3"
+        android:id="@+id/duration"
         android:hint="Duration"
-        android:layout_alignTop="@+id/editText2"
+        android:layout_alignTop="@+id/timesPerWeek"
         android:layout_alignParentEnd="true"
         android:layout_marginRight="30dp" />
 
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="160dp"
-        android:layout_below="@+id/editText2"
+        android:layout_below="@+id/timesPerWeek"
         android:layout_marginTop="20dp"
         android:stretchColumns="0,1"
         android:id="@+id/dayTable">
@@ -65,7 +65,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Sunday"
-                android:id="@+id/checkBox"
+                android:id="@+id/SundayCheckBox"
                 android:checked="true"
                 android:layout_marginLeft="20dp" />
 
@@ -73,7 +73,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Thursday"
-                android:id="@+id/checkBox5"
+                android:id="@+id/ThursdayCheckBox"
                 android:checked="true"
                 android:layout_marginLeft="20dp" />
         </TableRow>
@@ -88,7 +88,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Monday"
-                android:id="@+id/checkBox2"
+                android:id="@+id/MondayCheckBox"
                 android:checked="true"
                 android:layout_marginLeft="20dp" />
 
@@ -96,7 +96,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Friday"
-                android:id="@+id/checkBox6"
+                android:id="@+id/FridayCheckBox"
                 android:checked="true"
                 android:layout_marginLeft="20dp" />
         </TableRow>
@@ -111,7 +111,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Tuesday"
-                android:id="@+id/checkBox3"
+                android:id="@+id/TuesdayCheckBox"
                 android:checked="true"
                 android:layout_marginLeft="20dp" />
 
@@ -119,7 +119,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Saturday"
-                android:id="@+id/checkBox7"
+                android:id="@+id/SaturdayCheckBox"
                 android:checked="true"
                 android:layout_marginLeft="20dp" />
         </TableRow>
@@ -134,7 +134,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Wednesday"
-                android:id="@+id/checkBox4"
+                android:id="@+id/WednesdayCheckBox"
                 android:checked="true"
                 android:layout_marginLeft="20dp" />
 
@@ -146,7 +146,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Create"
-        android:id="@+id/button"
+        android:id="@+id/create"
         android:gravity="center_horizontal"
         android:layout_below="@+id/dayTable"
         android:layout_centerHorizontal="true" />

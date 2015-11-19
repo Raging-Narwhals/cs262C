@@ -16,22 +16,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".DynamicEventView"
-            android:label="Dynamic Event View" >
-        </activity>
-        <activity
-            android:name=".StaticEventView"
-            android:label="Static Event View" >
-        </activity>
-        <activity
-            android:name=".CreateDynamicEvent"
-            android:label="Create Dynamic Event" >
-        </activity>
-        <activity
-            android:name=".CreateStaticEvent"
-            android:label="Create Static Event" >
-        </activity>
     </application>
 
 </manifest>

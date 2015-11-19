@@ -36,7 +36,7 @@ public class StaticEventView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_static_event_view);
 
-        ListView listView = (ListView) findViewById(R.id.listView2);
+        ListView eventList = (ListView) findViewById(R.id.listView2);
 
         //align button object with UI buttons
         createStaticEventButton = (Button) findViewById(R.id.createStaticEventButton);
@@ -66,7 +66,7 @@ public class StaticEventView extends AppCompatActivity {
                 this,
                 android.R.layout.simple_list_item_1,
                 temps);
-        listView.setAdapter(myAdapter);
+        eventList.setAdapter(myAdapter);
 
     }
 

@@ -17,12 +17,7 @@ import java.util.Vector;
 
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link EventDynamicCreate.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link EventDynamicCreate#newInstance} factory method to
- * create an instance of this fragment.
+ * Defines the UI and logic for the creation of new events
  */
 public class EventDynamicCreate extends Fragment {
     // TODO: Rename parameter arguments, choose names that match

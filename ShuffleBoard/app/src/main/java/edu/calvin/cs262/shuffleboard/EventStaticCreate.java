@@ -15,12 +15,7 @@ import android.widget.EditText;
 
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link EventStaticCreate.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link EventStaticCreate#newInstance} factory method to
- * create an instance of this fragment.
+ * Defines the UI and logic for the creation of new events
  */
 public class EventStaticCreate extends Fragment {
     // TODO: Rename parameter arguments, choose names that match

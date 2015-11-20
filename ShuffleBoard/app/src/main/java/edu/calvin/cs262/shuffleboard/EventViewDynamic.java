@@ -1,6 +1,5 @@
 package edu.calvin.cs262.shuffleboard;
 
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -16,12 +15,7 @@ import android.widget.ListView;
 
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link EventViewDynamic.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link EventViewDynamic#newInstance} factory method to
- * create an instance of this fragment.
+ * Defines the UI for the dynamic events list view
  */
 public class EventViewDynamic extends Fragment {
     // TODO: Rename parameter arguments, choose names that match

@@ -1,0 +1,42 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" tools:context="edu.calvin.cs262.shuffleboard.AddPerson">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="240dp"
+        android:layout_height="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp"
+        android:id="@+id/linearLayout">
+
+        <EditText
+            android:layout_width="160dp"
+            android:layout_height="40dp"
+            android:id="@+id/editText"
+            android:width="160dp"
+            android:gravity="center_horizontal"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_weight="1"
+            android:layout_marginLeft="0dp"
+            android:hint="Person ID" />
+
+        <Button
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:text="Search"
+            android:id="@+id/button" />
+    </LinearLayout>
+
+    <ListView
+        android:layout_width="240dp"
+        android:layout_height="300dp"
+        android:id="@+id/suggestList"
+        android:layout_below="@+id/linearLayout"
+        android:layout_alignLeft="@+id/linearLayout"
+        android:layout_alignStart="@+id/linearLayout"
+        android:layout_marginTop="20dp" />
+
+</RelativeLayout>

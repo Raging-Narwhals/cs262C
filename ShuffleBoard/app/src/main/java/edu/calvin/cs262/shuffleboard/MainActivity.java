@@ -1,8 +1,6 @@
 package edu.calvin.cs262.shuffleboard;
 
 import android.content.res.Configuration;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -44,9 +42,11 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
 
-            // Create an instance of ExampleFragment
-            EventViewDynamic frag = new EventViewDynamic();
+            // Create an instance of Fragment
+            //EventViewDynamic frag = new EventViewDynamic();
             //EventViewStatic frag = new EventViewStatic();
+            AddPerson frag = new AddPerson();
+            //Requests frag = new Requests();
 
             // In case this activity was started with special instructions from an Intent,
             // pass the Intent's extras to the fragment as arguments

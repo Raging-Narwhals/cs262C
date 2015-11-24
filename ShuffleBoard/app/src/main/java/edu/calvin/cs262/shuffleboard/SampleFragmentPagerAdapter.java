@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 /**
- * Created by user on 11/15/2015.
+ * Defines the tabs for the list view for static and dynamic events
  */
 public class SampleFragmentPagerAdapter extends FragmentPagerAdapter {
     final int PAGE_COUNT = 2;

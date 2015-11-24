@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 /**
- * Created by user on 11/15/2015.
+ *
  */
 public class PageFragment extends Fragment {
     public static final String ARG_PAGE = "ARG_PAGE";

@@ -29,6 +29,7 @@ public class MyActivity extends ActionBarActivity {
     private String[] leftSliderData = {"", "Calendar", "Schedule", "Sharing", "Requests", "Settings"};
 
     Button goToScheduleViewTempButton;
+    Button goToWeeklyViewTempButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,12 +46,22 @@ public class MyActivity extends ActionBarActivity {
         setSupportActionBar(toolbar);                   // Setting toolbar as the ActionBar with setSupportActionBar() call
 
         goToScheduleViewTempButton = (Button) findViewById(R.id.gotoScheduleTemp);
+        goToWeeklyViewTempButton = (Button) findViewById(R.id.gotoWeeklyTemp);
 
         goToScheduleViewTempButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent(v.getContext(), DynamicEventView.class);
+                startActivityForResult(myIntent, 0);
+            }
+        });
+
+        goToWeeklyViewTempButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(v.getContext(), WeeklyView.class);
                 startActivityForResult(myIntent, 0);
             }
         });

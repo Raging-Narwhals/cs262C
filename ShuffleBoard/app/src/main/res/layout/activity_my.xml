@@ -51,15 +51,15 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="179dp" />
 
-    <TextView
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Weekly View"
-        android:id="@+id/textView2"
-        android:layout_below="@+id/toolbar"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="88dp"
-        android:password="false" />
+        android:id="@+id/gotoWeeklyTemp"
+        android:layout_above="@+id/gotoScheduleTemp"
+        android:layout_alignStart="@+id/gotoScheduleTemp"
+        android:layout_marginBottom="88dp"
+        android:layout_alignEnd="@+id/gotoScheduleTemp" />
 
 
 </RelativeLayout>

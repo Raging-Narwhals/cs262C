@@ -27,7 +27,10 @@
             android:label="@string/title_activity_dynamic_event_view" />
         <activity
             android:name=".StaticEventView"
-            android:label="@string/title_activity_static_event_view" >
+            android:label="@string/title_activity_static_event_view" />
+        <activity
+            android:name=".WeeklyView"
+            android:label="@string/title_activity_weekly_view" >
         </activity>
     </application>
 

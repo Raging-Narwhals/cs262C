@@ -1,6 +1,7 @@
 package edu.calvin.cs262.shuffleboard;
 
 import android.content.res.Configuration;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -43,9 +44,9 @@ public class MainActivity extends AppCompatActivity {
             }
 
             // Create an instance of Fragment
-            //EventViewDynamic frag = new EventViewDynamic();
+            EventViewDynamic frag = new EventViewDynamic();
             //EventViewStatic frag = new EventViewStatic();
-            AddPerson frag = new AddPerson();
+            //AddPerson frag = new AddPerson();
             //Requests frag = new Requests();
 
             // In case this activity was started with special instructions from an Intent,
@@ -82,5 +83,65 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void goToCalendar(MenuItem item) {
+        // Create an instance of Fragment
+        EventDynamicCreate frag = new EventDynamicCreate();
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+        // Replace whatever is in the fragment_container view with this fragment,
+        // and add the transaction to the back stack so the user can navigate back
+        transaction.replace(R.id.fragment_container, frag);
+
+        // Commit the transaction
+        transaction.commit();
+        mDrawer.closeDrawers();
+    }
+
+    public void goToSchedule(MenuItem item) {
+        // Create an instance of Fragment
+        EventViewDynamic frag = new EventViewDynamic();
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+        // Replace whatever is in the fragment_container view with this fragment,
+        // and add the transaction to the back stack so the user can navigate back
+        transaction.replace(R.id.fragment_container, frag);
+
+        // Commit the transaction
+        transaction.commit();
+        mDrawer.closeDrawers();
+    }
+
+    public void goToAddPerson(MenuItem item) {
+        // Create an instance of Fragment
+        AddPerson frag = new AddPerson();
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+        // Replace whatever is in the fragment_container view with this fragment,
+        // and add the transaction to the back stack so the user can navigate back
+        transaction.replace(R.id.fragment_container, frag);
+
+        // Commit the transaction
+        transaction.commit();
+        mDrawer.closeDrawers();
+    }
+
+    public void goToRequests(MenuItem item) {
+        // Create an instance of Fragment
+        Requests frag = new Requests();
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+        // Replace whatever is in the fragment_container view with this fragment,
+        // and add the transaction to the back stack so the user can navigate back
+        transaction.replace(R.id.fragment_container, frag);
+
+        // Commit the transaction
+        transaction.commit();
+        mDrawer.closeDrawers();
     }
 }

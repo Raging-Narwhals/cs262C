@@ -96,7 +96,7 @@ public class EventViewDynamic extends Fragment {
         createDynamicEventButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Create an instance of ExampleFragment
+                // Create an instance of Fragment
                 EventDynamicCreate frag = new EventDynamicCreate();
 
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();

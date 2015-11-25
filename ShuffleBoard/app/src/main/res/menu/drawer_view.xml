@@ -3,19 +3,26 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_first_fragment"
+            android:id="@+id/nav_calendar"
             android:title="Calendar"
+            android:onClick="goToCalendar"
             android:checked="true"/>
         <item
-            android:id="@+id/nav_second_fragment"
+            android:id="@+id/nav_schedule"
+            android:onClick="goToSchedule"
             android:title="Schedule" />
     </group>
 
     <item android:title="Sharing">
         <menu>
             <item
+                android:id="@+id/nav_add_person"
+                android:onClick="goToAddPerson"
+
                 android:title="Add Person" />
             <item
+                android:id="@+id/nav_requests"
+                android:onClick="goToRequests"
                 android:title="Requests" />
         </menu>
     </item>

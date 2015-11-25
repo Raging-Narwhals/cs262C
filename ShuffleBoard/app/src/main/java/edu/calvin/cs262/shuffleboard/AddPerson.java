@@ -36,6 +36,7 @@ public class AddPerson extends Fragment {
     private OnFragmentInteractionListener mListener;
 
     String[] temps = {"Bob", "Dr J 307", "Dr Whack-a-mole", "Isaac"};
+    View me;
 
     /**
      * Use this factory method to create a new instance of
@@ -73,6 +74,7 @@ public class AddPerson extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View myView = inflater.inflate(R.layout.fragment_add_person, container, false);
+        me = myView;
 
         ListView eventList = (ListView) myView.findViewById(R.id.suggestList);
 
@@ -120,23 +122,48 @@ public class AddPerson extends Fragment {
             }
         });
 
-/*        //EditText name = (EditText) myView.findViewById(R.id.name);
-        Button searchPeopleButton = (Button) myView.findViewById(R.id.goToStaticEventsButton);
+        //EditText name = (EditText) myView.findViewById(R.id.name);
+        Button searchPeopleButton = (Button) myView.findViewById(R.id.search_people_button);
 
         //when button is clicked, send user to UI page for creating a dynamic event
         searchPeopleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText name = (EditText) v.findViewById(R.id.name);
-                //TODO make this work with the database
+                EditText name = (EditText) me.findViewById(R.id.searchPeopleTextField);
+                new AlertDialog.Builder(getContext())
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle("Send request to share?")
+                        .setMessage("Send request to share with user \"" + name.getText().toString() + "\"?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                // Create an instance of Fragment
+                                EventViewDynamic frag = new EventViewDynamic();
+
+                                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+                                // Replace whatever is in the fragment_container view with this fragment,
+                                // and add the transaction to the back stack so the user can navigate back
+                                transaction.replace(R.id.fragment_container, frag);
+
+                                // Commit the transaction
+                                transaction.commit();
+                            }
+
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
+                /*//TODO make this work with the database
                 String myName = name.getText().toString();
                 List<String> old = new ArrayList<String>();
                 for (int i=0; i < temps.length; i++) {
                     old.add(temps[i]);
                 }
-                old.add(myName);
+                old.add(myName);*/
             }
-        });*/
+        });
 
         return myView;
     }

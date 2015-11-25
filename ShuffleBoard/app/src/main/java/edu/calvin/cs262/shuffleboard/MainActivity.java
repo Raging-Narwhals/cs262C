@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void goToCalendar(MenuItem item) {
         // Create an instance of Fragment
-        EventDynamicCreate frag = new EventDynamicCreate();
+        CalendarFragment frag = new CalendarFragment();
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 

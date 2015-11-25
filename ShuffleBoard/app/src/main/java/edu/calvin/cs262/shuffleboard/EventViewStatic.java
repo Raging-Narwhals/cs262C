@@ -79,14 +79,14 @@ public class EventViewStatic extends Fragment {
         // Inflate the layout for this fragment
         final View myView = inflater.inflate(R.layout.fragment_event_view_static, container, false);
 
-        // Get the ViewPager and set it's PagerAdapter so that it can display items
+/*        // Get the ViewPager and set it's PagerAdapter so that it can display items
         ViewPager viewPager = (ViewPager) myView.findViewById(R.id.viewpager);
         viewPager.setAdapter(new SampleFragmentPagerAdapter(getFragmentManager(),
                 getContext()));
 
         // Give the TabLayout the ViewPager
         TabLayout tabLayout = (TabLayout) myView.findViewById(R.id.sliding_tabs);
-        tabLayout.setupWithViewPager(viewPager);
+        tabLayout.setupWithViewPager(viewPager);*/
 
         ListView eventList = (ListView) myView.findViewById(R.id.listView2);
 

@@ -13,21 +13,19 @@
         <EditText
             android:layout_width="160dp"
             android:layout_height="40dp"
-            android:id="@+id/editText"
+            android:id="@+id/searchPeopleTextField"
             android:width="160dp"
             android:gravity="center_horizontal"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
             android:layout_weight="1"
             android:layout_marginLeft="0dp"
+            android:layout_marginStart="0dp"
             android:hint="Person ID" />
 
         <Button
             android:layout_width="80dp"
             android:layout_height="40dp"
             android:text="Search"
-            android:id="@+id/button" />
+            android:id="@+id/search_people_button" />
     </LinearLayout>
 
     <ListView

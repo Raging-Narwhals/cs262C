@@ -5,12 +5,12 @@
         <item
             android:id="@+id/nav_calendar"
             android:title="Calendar"
-            android:onClick="goToCalendar"
-            android:checked="true"/>
+            android:onClick="goToCalendar" />
         <item
             android:id="@+id/nav_schedule"
             android:onClick="goToSchedule"
-            android:title="Schedule" />
+            android:title="Schedule"
+            android:checked="true" />
     </group>
 
     <item android:title="Sharing">

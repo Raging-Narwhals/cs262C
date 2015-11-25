@@ -1,24 +1,17 @@
 package edu.calvin.cs262.shuffleboard;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 
 /**
- * A simple UI for users to accept share requests from friends
+ * The calendar view showing the user's weekly schedule in grid form
  */
-public class Requests extends Fragment {
+public class CalendarFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -30,19 +23,17 @@ public class Requests extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    String[] temps = {"Bob", "Dr J 307", "Dr Whack-a-mole", "Isaac"};
-
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment Requests.
+     * @return A new instance of fragment CalendarFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static Requests newInstance(String param1, String param2) {
-        Requests fragment = new Requests();
+    public static CalendarFragment newInstance(String param1, String param2) {
+        CalendarFragment fragment = new CalendarFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -50,7 +41,7 @@ public class Requests extends Fragment {
         return fragment;
     }
 
-    public Requests() {
+    public CalendarFragment() {
         // Required empty public constructor
     }
 
@@ -67,55 +58,7 @@ public class Requests extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View myView = inflater.inflate(R.layout.fragment_requests, container, false);
-
-        ListView eventList = (ListView) myView.findViewById(R.id.requestList);
-
-        //Set adapter with the string array of events from saved data, input them into list
-        ArrayAdapter<String> myAdapter=new
-                ArrayAdapter<String>(
-                getContext(),
-                android.R.layout.simple_list_item_1,
-                temps);
-        eventList.setAdapter(myAdapter);
-
-        eventList.setClickable(true);
-        eventList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                //Object o = arg0.getItemAtPosition(position);
-
-                String name = (String) arg0.getItemAtPosition(position);
-                new AlertDialog.Builder(getContext())
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .setTitle("Accept request to share?")
-                        .setMessage("Accept request to share with user \"" + name + "\"?")
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-                                // Create an instance of Fragment
-                                EventViewDynamic frag = new EventViewDynamic();
-
-                                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-
-                                // Replace whatever is in the fragment_container view with this fragment,
-                                // and add the transaction to the back stack so the user can navigate back
-                                transaction.replace(R.id.fragment_container, frag);
-
-                                // Commit the transaction
-                                transaction.commit();
-                            }
-
-                        })
-                        .setNegativeButton("No", null)
-                        .show();
-            }
-        });
-
-        return myView;
+        return inflater.inflate(R.layout.fragment_calendar, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -124,8 +67,8 @@ public class Requests extends Fragment {
             mListener.onFragmentInteraction(uri);
         }
     }
-
-/*    @Override
+/*
+    @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {

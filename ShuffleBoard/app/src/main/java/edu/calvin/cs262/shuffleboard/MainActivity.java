@@ -1,6 +1,5 @@
 package edu.calvin.cs262.shuffleboard;
 
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
@@ -9,8 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-
-import java.util.Calendar;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -47,10 +44,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             // Create an instance of Fragment
-            EventViewDynamic frag = new EventViewDynamic();
-            //EventViewStatic frag = new EventViewStatic();
-            //AddPerson frag = new AddPerson();
-            //Requests frag = new Requests();
+            ScheduleFragment frag = new ScheduleFragment();
 
             // In case this activity was started with special instructions from an Intent,
             // pass the Intent's extras to the fragment as arguments
@@ -105,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void goToSchedule(MenuItem item) {
         // Create an instance of Fragment
-        EventViewDynamic frag = new EventViewDynamic();
+        ScheduleFragment frag = new ScheduleFragment();
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 

@@ -113,6 +113,7 @@ public class EventViewStatic extends Fragment {
             }
         });
 
+        /*
         //when button is clicked, send user to UI page for viewing static events
         goToDynamicEventButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,6 +132,7 @@ public class EventViewStatic extends Fragment {
                 transaction.commit();
             }
         });
+*/
 
         //Set adapter with the string array of events from saved data, input them into list
         ArrayAdapter<String> myAdapter=new

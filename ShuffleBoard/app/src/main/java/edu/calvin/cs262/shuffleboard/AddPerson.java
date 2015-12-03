@@ -18,6 +18,7 @@ import android.widget.ListView;
 import java.io.IOException;
 import java.io.InputStream;
 
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -26,6 +27,7 @@ import org.apache.http.client.methods.HttpPut;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
+
 
 
 /**
@@ -84,6 +86,7 @@ public class AddPerson extends Fragment {
         View myView = inflater.inflate(R.layout.fragment_add_person, container, false);
         me = myView;
 
+
         new GetFriends().execute();
 
         //EditText name = (EditText) myView.findViewById(R.id.name);
@@ -106,7 +109,7 @@ public class AddPerson extends Fragment {
                             public void onClick(DialogInterface dialog, int which) {
 
                                 // Create an instance of Fragment
-                                EventViewDynamic frag = new EventViewDynamic();
+                                ScheduleFragment frag = new ScheduleFragment();
 
                                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
 

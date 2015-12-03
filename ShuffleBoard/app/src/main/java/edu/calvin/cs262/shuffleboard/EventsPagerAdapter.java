@@ -1,6 +1,5 @@
 package edu.calvin.cs262.shuffleboard;
 
-import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -24,13 +23,7 @@ public class EventsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        if (position == 0) {
-            // Static Event View
-            return PageFragment.newInstance(position + 1);
-        } else {
-            // Static Event View
-            return PageFragment.newInstance(position + 1);
-        }
+            return EventListFragment.newInstance(position + 1);
     }
 
     @Override

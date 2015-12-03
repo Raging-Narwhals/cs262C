@@ -107,7 +107,7 @@ public class EventStaticCreate extends Fragment {
                 }
 
                 // Go back to the StaticEvent fragment
-                EventViewStatic frag = new EventViewStatic();
+                ScheduleFragment frag = new ScheduleFragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 // Replace whatever is in the flContent view with this fragment,
                 // and add the transaction to the back stack so the user can navigate back

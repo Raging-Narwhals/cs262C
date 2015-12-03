@@ -83,7 +83,7 @@ public class Requests extends Fragment {
         View myView = inflater.inflate(R.layout.fragment_requests, container, false);
         me = myView;
 
-        new GetFriends().execute();
+//        new GetFriends().execute();
 
         return myView;
     }
@@ -216,11 +216,11 @@ public class Requests extends Fragment {
                                         new AcceptFriend().execute();
 
                                         // Create an instance of Fragment
-                                        EventViewDynamic frag = new EventViewDynamic();
+                                        ScheduleFragment frag = new ScheduleFragment();
 
                                         FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
-                                        // Replace whatever is in the fragment_container view with this fragment,
+                                        // Replace whatever is in the flContent view with this fragment,
                                         // and add the transaction to the back stack so the user can navigate back
                                         transaction.replace(R.id.flContent, frag);
 

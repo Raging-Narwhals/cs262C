@@ -22,7 +22,8 @@ CREATE TABLE Users ( name varchar(31),
 
 -- Table for information regarding who is friends with who
 CREATE TABLE Friends ( userID integer REFERENCES Users(ID), 
-	friendID integer REFERENCES Users(ID) PRIMARY KEY );
+	friendID integer REFERENCES Users(ID), --PRIMARY KEY );
+	PRIMARY KEY (userID, friendID) );
 	--friendID int REFERENCES Users(ID) PRIMARY KEY(userID, friendID) );
 
 -- Table for information in common between StaticEvents of a user

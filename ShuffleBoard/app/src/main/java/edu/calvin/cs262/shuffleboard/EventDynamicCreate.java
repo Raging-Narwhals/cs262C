@@ -105,7 +105,7 @@ public class EventDynamicCreate extends Fragment {
                 newEvent = new DynamicEvent(timesPerWeekNum, durationNum, name.getText().toString(), 0, dayTimes);
 
                 // Go back to the StaticEvent fragment
-                EventViewDynamic frag = new EventViewDynamic();
+                ScheduleFragment frag = new ScheduleFragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 // Replace whatever is in the flContent view with this fragment,
                 // and add the transaction to the back stack so the user can navigate back

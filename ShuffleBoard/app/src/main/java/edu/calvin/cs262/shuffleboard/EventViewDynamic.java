@@ -127,7 +127,7 @@ public class EventViewDynamic extends Fragment {
                 temps);
         eventList.setAdapter(myAdapter);*/
 
-        new GetEvents().execute();
+        new GetDynamicEvents().execute();
 
         return myView;
     }
@@ -160,7 +160,7 @@ public class EventViewDynamic extends Fragment {
         public void onFragmentInteraction(Uri uri);
     }
 
-    private class GetEvents extends AsyncTask<Void, Void, String> {
+    private class GetDynamicEvents extends AsyncTask<Void, Void, String> {
 
         private final String USERNAME_URI = DB_BASE + "user/";
         String result;

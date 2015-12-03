@@ -46,7 +46,7 @@ public class AddPerson extends Fragment {
     private OnFragmentInteractionListener mListener;
 
     View me;
-    static String DB_BASE = "http://153.106.116.66:9998/shuffle/";
+    static String DB_BASE = "http://153.106.116.65:9998/shuffle/";
 
     /**
      * Use this factory method to create a new instance of

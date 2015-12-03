@@ -98,6 +98,8 @@ public class EventViewStatic extends Fragment {
         // Inflate the layout for this fragment
         final View myView = inflater.inflate(R.layout.fragment_event_view_static, container, false);
         me = myView;
+
+        new GetStaticEvents().execute();
 /*
         ListView eventList = (ListView) myView.findViewById(R.id.listView2);
 
@@ -163,7 +165,7 @@ public class EventViewStatic extends Fragment {
         public void onFragmentInteraction(Uri uri);
     }
 
-    private class GetEvents extends AsyncTask<Void, Void, String> {
+    private class GetStaticEvents extends AsyncTask<Void, Void, String> {
 
         private final String USERNAME_URI = DB_BASE + "user/";
         String result;

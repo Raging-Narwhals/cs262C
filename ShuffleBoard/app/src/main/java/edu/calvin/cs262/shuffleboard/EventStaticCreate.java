@@ -1,15 +1,34 @@
 package edu.calvin.cs262.shuffleboard;
 
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ListView;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.protocol.BasicHttpContext;
+import org.apache.http.protocol.HttpContext;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
 
 
 /**
@@ -26,6 +45,9 @@ public class EventStaticCreate extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    View me;
+    static String DB_BASE = "http://153.106.116.65:9998/shuffle/";
 
     StaticEvent newEvent;
     Button createButton;
@@ -68,6 +90,7 @@ public class EventStaticCreate extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View myView = inflater.inflate(R.layout.fragment_event_static_create, container, false);
+        me = myView;
 
         // Define variables to access the editText objects
         name = (EditText) myView.findViewById(R.id.name);
@@ -105,6 +128,8 @@ public class EventStaticCreate extends Fragment {
                     newEvent = new StaticEvent(startNum, endNum, name.getText().toString(),
                             0, setDays);
                 }
+
+                new PostStaticEvent().execute();
 
                 // Go back to the StaticEvent fragment
                 ScheduleFragment frag = new ScheduleFragment();
@@ -160,6 +185,72 @@ public class EventStaticCreate extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
+    }
+
+    private class PostStaticEvent extends AsyncTask<Void, Void, String> {
+
+        private final String USERNAME_URI = DB_BASE + "user/";
+        String result;
+
+        /**
+         * This method extracts text from the HTTP response entity.
+         *
+         * @param entity
+         * @return
+         * @throws IllegalStateException
+         * @throws IOException
+         */
+        protected String getASCIIContentFromEntity(HttpEntity entity) throws IllegalStateException, IOException {
+            InputStream in = entity.getContent();
+            StringBuffer out = new StringBuffer();
+            int n = 1;
+            while (n > 0) {
+                byte[] b = new byte[4096];
+                n = in.read(b);
+                if (n > 0) out.append(new String(b, 0, n));
+            }
+            return out.toString();
+        }
+
+        /**
+         * This method issues the HTTP GET request.
+         *
+         * @param params
+         * @return
+         */
+        @Override
+        protected String doInBackground(Void... params) {
+            HttpClient httpClient = new DefaultHttpClient();
+            HttpContext localContext = new BasicHttpContext();
+            HttpPut httpPut = new HttpPut(USERNAME_URI + "1/events/static/addLong" + "5__7__0010010__rawr");
+            String text = null;
+            try {
+                httpPut.setEntity(new StringEntity(newEvent.toString()));
+                HttpResponse response = httpClient.execute(httpPut, localContext);
+                HttpEntity entity = response.getEntity();
+                text = getASCIIContentFromEntity(entity);
+            } catch (Exception e) {
+                return e.getLocalizedMessage();
+            }
+            return text;
+        }
+
+        /**
+         * The method runs before the others.
+         */
+        protected void onPreExecute() {
+        }
+
+        /**
+         * The method takes the results of the request, when they arrive, and updates the interface.
+         *
+         * @param results
+         */
+        protected void onPostExecute(String results) {
+            if (results != null) {
+            } else result = "uhoh";
+        }
+
     }
 
 }

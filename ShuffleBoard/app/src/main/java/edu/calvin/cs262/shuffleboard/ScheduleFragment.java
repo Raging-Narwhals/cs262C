@@ -75,8 +75,6 @@ public class ScheduleFragment extends Fragment {
         TabLayout tabLayout = (TabLayout) myView.findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(viewPager);
 
-
-
         return myView;
     }
 

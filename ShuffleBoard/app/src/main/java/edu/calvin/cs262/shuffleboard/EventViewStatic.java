@@ -103,9 +103,9 @@ public class EventViewStatic extends Fragment {
 
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
-                // Replace whatever is in the fragment_container view with this fragment,
+                // Replace whatever is in the flContent view with this fragment,
                 // and add the transaction to the back stack so the user can navigate back
-                transaction.replace(R.id.fragment_container, frag);
+                transaction.replace(R.id.flContent, frag);
                 transaction.addToBackStack(null);
 
                 // Commit the transaction
@@ -122,9 +122,9 @@ public class EventViewStatic extends Fragment {
 
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
-                // Replace whatever is in the fragment_container view with this fragment,
+                // Replace whatever is in the flContent view with this fragment,
                 // and add the transaction to the back stack so the user can navigate back
-                transaction.replace(R.id.fragment_container, frag);
+                transaction.replace(R.id.flContent, frag);
                 //transaction.addToBackStack(null);
 
                 // Commit the transaction

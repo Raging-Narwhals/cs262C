@@ -1,65 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-<!--    <android.support.design.widget.TabLayout
-        android:id="@+id/sliding_tabs"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:tabMode="scrollable" />
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewpager"
-        android:layout_width="match_parent"
-        android:layout_height="0px"
-        android:layout_weight="1"
-        android:background="@android:color/white" />-->
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Static Events"
-        android:id="@+id/goToStaticEventsButton"
-        android:longClickable="false"
-        android:enabled="true"
-        android:elegantTextHeight="false"
-        android:clickable="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignStart="@id/goToDynamicEventsButton"
-        android:layout_alignLeft="@id/goToDynamicEventsButton"
-        android:layout_toStartOf="@+id/goToDynamicEventsButton"
-        android:layout_toLeftOf="@+id/goToDynamicEventsButton"
-        android:background="#c6000000"
-        android:textAlignment="center" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="        Dynamic Events        "
-        android:id="@+id/goToDynamicEventsButton"
-        android:backgroundTint="@color/abc_background_cache_hint_selector_material_light"
-        android:layout_alignTop="@+id/goToStaticEventsButton"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_column="2" />
-
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Create Static Event"
-        android:id="@+id/createStaticEventButton"
-        android:layout_below="@+id/goToDynamicEventsButton"
-        android:layout_centerHorizontal="true" />
-
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/listView2"
-        android:layout_below="@+id/createStaticEventButton"
+        android:id="@+id/staticEventListView"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:divider="#124b68"

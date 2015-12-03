@@ -1,6 +1,7 @@
 package edu.calvin.cs262.shuffleboard;
 
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,18 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.protocol.BasicHttpContext;
+import org.apache.http.protocol.HttpContext;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
 
 
 /**
@@ -28,6 +41,9 @@ public class EventViewDynamic extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    View me;
+    static String DB_BASE = "http://153.106.116.66:9998/shuffle/";
 
     Button createDynamicEventButton;
     Button goToStaticEventButton;
@@ -76,8 +92,9 @@ public class EventViewDynamic extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View myView = inflater.inflate(R.layout.fragment_event_view_dynamic, container, false);
-
-        ListView eventList = (ListView) myView.findViewById(R.id.listView);
+        me = myView;
+/*
+        ListView eventList = (ListView) myView.findViewById(R.id.calendarEventListView);
 
        //align button object with UI buttons
         createDynamicEventButton = (Button) myView.findViewById(R.id.createDynamicEventButton);
@@ -108,7 +125,10 @@ public class EventViewDynamic extends Fragment {
                 getContext(),
                 android.R.layout.simple_list_item_1,
                 temps);
-        eventList.setAdapter(myAdapter);
+        eventList.setAdapter(myAdapter);*/
+
+        new GetEvents().execute();
+
         return myView;
     }
 
@@ -138,6 +158,97 @@ public class EventViewDynamic extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
+    }
+
+    private class GetEvents extends AsyncTask<Void, Void, String> {
+
+        private final String USERNAME_URI = DB_BASE + "user/";
+        String result;
+
+        /**
+         * This method extracts text from the HTTP response entity.
+         *
+         * @param entity
+         * @return
+         * @throws IllegalStateException
+         * @throws IOException
+         */
+        protected String getASCIIContentFromEntity(HttpEntity entity) throws IllegalStateException, IOException {
+            InputStream in = entity.getContent();
+            StringBuffer out = new StringBuffer();
+            int n = 1;
+            while (n > 0) {
+                byte[] b = new byte[4096];
+                n = in.read(b);
+                if (n > 0) out.append(new String(b, 0, n));
+            }
+            return out.toString();
+        }
+
+        /**
+         * This method issues the HTTP GET request.
+         *
+         * @param params
+         * @return
+         */
+        @Override
+        protected String doInBackground(Void... params) {
+            HttpClient httpClient = new DefaultHttpClient();
+            HttpContext localContext = new BasicHttpContext();
+            HttpGet httpGet = new HttpGet(USERNAME_URI + "1/events/dynamic");
+            String text = null;
+            try {
+                HttpResponse response = httpClient.execute(httpGet, localContext);
+                HttpEntity entity = response.getEntity();
+                text = getASCIIContentFromEntity(entity);
+            } catch (Exception e) {
+                return e.getLocalizedMessage();
+            }
+            return text;
+        }
+
+        /**
+         * The method runs before the others.
+         */
+        protected void onPreExecute() {
+        }
+
+        /**
+         * The method takes the results of the request, when they arrive, and updates the interface.
+         *
+         * @param results
+         */
+        protected void onPostExecute(String results) {
+            if (results != null) {
+                //       id  event st  sp  days
+                //result=
+                result = results;
+                String[] eventslist = result.split("|||");
+                String[] events;
+                ArrayList<DynamicEvent> myEvents = new ArrayList<DynamicEvent>();
+                DynamicEvent newEvent;
+                for (int i = 0; i < eventslist.length; i++) {
+                    events = eventslist[i].split("||");
+                    //TODO make sure this is right
+                    boolean[] days = {events[4].charAt(0)=='1', events[4].charAt(1)=='1', events[4].charAt(2)=='1', events[4].charAt(3)=='1', events[4].charAt(4)=='1',
+                            events[4].charAt(5)=='1', events[4].charAt(6)=='1'};
+                    newEvent = new DynamicEvent(Integer.getInteger(events[2]), Double.parseDouble(events[3]), events[1], 1);
+                    //TODO add the new event to the listview
+                }
+
+
+                /*ListView eventList = (ListView) getView().findViewById(R.id.staticEventListView);
+                String[] friends = result.split(",");
+                //Set adapter with the string array of events from saved data, input them into list
+                ArrayAdapter<String> myAdapter=new
+                        ArrayAdapter<String>(
+                        getContext(),
+                        android.R.layout.simple_list_item_1,
+                        friends);
+                eventList.setAdapter(myAdapter);*/
+            } else result = "uhoh";
+        }
+
     }
 
 }

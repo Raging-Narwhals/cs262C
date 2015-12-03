@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -72,10 +73,39 @@ public class ScheduleFragment extends Fragment {
                 (getChildFragmentManager()));
 
         // Give the TabLayout the ViewPager
-        TabLayout tabLayout = (TabLayout) myView.findViewById(R.id.sliding_tabs);
+        final TabLayout tabLayout = (TabLayout) myView.findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(viewPager);
 
+        FloatingActionButton fab = (FloatingActionButton) myView.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (tabLayout.getSelectedTabPosition() == 0) {
+                    EventStaticCreate frag = new EventStaticCreate();
+                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
+                    // Replace whatever is in the flContent view with this fragment,
+                    // and add the transaction to the back stack so the user can navigate back
+                    transaction.replace(R.id.flContent, frag);
+                    transaction.addToBackStack("back");
+
+                    // Commit the transaction
+                    transaction.commit();
+                } else {
+                    EventDynamicCreate frag = new EventDynamicCreate();
+                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+                    // Replace whatever is in the flContent view with this fragment,
+                    // and add the transaction to the back stack so the user can navigate back
+                    transaction.replace(R.id.flContent, frag);
+                    transaction.addToBackStack("back");
+
+                    // Commit the transaction
+                    transaction.commit();
+                }
+
+
+            }
+        });
 
         // setup FAB click listener
 

@@ -1,29 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
+    <group
+        android:id="@+id/menu_top"
+        android:checkableBehavior="single">
         <item
             android:id="@+id/nav_calendar"
+            android:icon="@mipmap/ic_calendar"
             android:title="Calendar"
             android:onClick="goToCalendar" />
         <item
             android:id="@+id/nav_schedule"
+            android:icon="@mipmap/ic_list"
             android:onClick="goToSchedule"
             android:title="Schedule"
             android:checked="true" />
     </group>
 
-    <item android:title="Sharing">
-        <menu>
+    <group
+        android:id="@+id/menu_middle"
+        android:checkableBehavior="single">
             <item
                 android:id="@+id/nav_add_person"
+                android:icon="@mipmap/ic_account_multiple"
                 android:onClick="goToAddPerson"
-
-                android:title="Share" />
+                android:title="Friends" />
             <item
                 android:id="@+id/nav_requests"
+                android:icon="@mipmap/ic_alert"
                 android:onClick="goToRequests"
                 android:title="Requests" />
-        </menu>
-    </item>
+    </group>
+
+    <group
+        android:id="@+id/menu_bottom"
+        android:checkableBehavior="single">
+            <item
+                android:id="@+id/nav_settings"
+                android:icon="@mipmap/ic_settings"
+                android:title="Settings" />
+    </group>
 </menu>

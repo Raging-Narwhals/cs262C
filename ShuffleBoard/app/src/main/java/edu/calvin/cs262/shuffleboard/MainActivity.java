@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
         // Tie DrawerLayout events to the ActionBarToggle
         mDrawer.setDrawerListener(drawerToggle);
 
-
         // Check whether the activity is using the layout version with
         // the flContent FrameLayout. If so, we must add the first fragment
         if (findViewById(R.id.flContent) != null) {
@@ -94,6 +93,8 @@ public class MainActivity extends AppCompatActivity {
 
         // Commit the transaction
         transaction.commit();
+        item.setChecked(true);
+        setTitle(item.getTitle());
         mDrawer.closeDrawers();
     }
 
@@ -109,6 +110,8 @@ public class MainActivity extends AppCompatActivity {
 
         // Commit the transaction
         transaction.commit();
+        item.setChecked(true);
+        setTitle(item.getTitle());
         mDrawer.closeDrawers();
     }
 
@@ -124,6 +127,8 @@ public class MainActivity extends AppCompatActivity {
 
         // Commit the transaction
         transaction.commit();
+        item.setChecked(true);
+        setTitle(item.getTitle());
         mDrawer.closeDrawers();
     }
 
@@ -139,6 +144,8 @@ public class MainActivity extends AppCompatActivity {
 
         // Commit the transaction
         transaction.commit();
+        item.setChecked(true);
+        setTitle(item.getTitle());
         mDrawer.closeDrawers();
     }
 }

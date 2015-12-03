@@ -2,6 +2,7 @@ package edu.calvin.cs262.shuffleboard;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -21,6 +22,8 @@ public class ScheduleFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    View me;
 
     /**
      * Use this factory method to create a new instance of
@@ -58,6 +61,7 @@ public class ScheduleFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View myView = inflater.inflate(R.layout.fragment_schedule, container, false);
+        me = myView;
 
         // Get the ViewPager and set it's PagerAdapter so that it can display items
         ViewPager viewPager = (ViewPager) myView.findViewById(R.id.viewpager);
@@ -71,6 +75,44 @@ public class ScheduleFragment extends Fragment {
 
 
         // setup FAB click listener
+        FloatingActionButton fab = (FloatingActionButton) myView.findViewById(R.id.fab_button);
+        //when button is clicked, send user to UI page for creating a dynamic event
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TabLayout tab = (TabLayout) me.findViewById(R.id.sliding_tabs);
+                int pos = tab.getSelectedTabPosition();
+
+                if (pos==0) {
+                    // Create an instance of Fragment
+                    EventStaticCreate frag = new EventStaticCreate();
+
+                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+                    // Replace whatever is in the flContent view with this fragment,
+                    // and add the transaction to the back stack so the user can navigate back
+                    transaction.replace(R.id.flContent, frag);
+                    transaction.addToBackStack(null);
+
+                    // Commit the transaction
+                    transaction.commit();
+                }
+                else if (pos==1) {
+                    // Create an instance of Fragment
+                    EventDynamicCreate frag = new EventDynamicCreate();
+
+                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+                    // Replace whatever is in the flContent view with this fragment,
+                    // and add the transaction to the back stack so the user can navigate back
+                    transaction.replace(R.id.flContent, frag);
+                    transaction.addToBackStack(null);
+
+                    // Commit the transaction
+                    transaction.commit();
+                }
+            }
+        });
 
         return myView;
     }

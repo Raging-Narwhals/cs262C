@@ -35,6 +35,7 @@
         android:layout_gravity="bottom|right"
         android:layout_margin="16dp"
         android:src="@mipmap/ic_plus"
+        android:id="@+id/fab_button"
         app:layout_anchorGravity="bottom|right|end" />
 
 

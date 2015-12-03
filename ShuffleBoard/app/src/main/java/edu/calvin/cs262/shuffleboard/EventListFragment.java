@@ -9,7 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 /**
- * Created by user on 12/3/2015.
+ * Fragment that will hold the Static and Dynamic EventList views
  */
 public class EventListFragment extends Fragment {
     public static final String ARG_PAGE = "ARG_PAGE";
@@ -78,7 +78,6 @@ public class EventListFragment extends Fragment {
                     dynamicTemps);
             eventList.setAdapter(myAdapter);
         }
-
 
         return myView;
     }

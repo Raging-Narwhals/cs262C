@@ -36,7 +36,8 @@
         android:layout_gravity="bottom|right"
         android:layout_margin="16dp"
         android:src="@mipmap/ic_plus"
-        app:layout_anchorGravity="bottom|right|end" />
+        app:layout_anchorGravity="bottom|right|end"
+        android:clickable="true" />
 
 
 </android.support.design.widget.CoordinatorLayout>

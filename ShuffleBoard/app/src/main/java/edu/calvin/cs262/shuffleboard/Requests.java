@@ -1,9 +1,9 @@
 package edu.calvin.cs262.shuffleboard;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -13,6 +13,18 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPut;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.protocol.BasicHttpContext;
+import org.apache.http.protocol.HttpContext;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 
 /**
@@ -30,7 +42,9 @@ public class Requests extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    String[] temps = {"Bob", "Dr J 307", "Dr Whack-a-mole", "Isaac"};
+    View me;
+    static String DB_BASE = "http://153.106.116.66:9998/shuffle/";
+    String userName;
 
     /**
      * Use this factory method to create a new instance of
@@ -51,7 +65,6 @@ public class Requests extends Fragment {
     }
 
     public Requests() {
-        // Required empty public constructor
     }
 
     @Override
@@ -68,52 +81,9 @@ public class Requests extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View myView = inflater.inflate(R.layout.fragment_requests, container, false);
+        me = myView;
 
-        ListView eventList = (ListView) myView.findViewById(R.id.requestList);
-
-        //Set adapter with the string array of events from saved data, input them into list
-        ArrayAdapter<String> myAdapter=new
-                ArrayAdapter<String>(
-                getContext(),
-                android.R.layout.simple_list_item_1,
-                temps);
-        eventList.setAdapter(myAdapter);
-
-        eventList.setClickable(true);
-        eventList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                //Object o = arg0.getItemAtPosition(position);
-
-                String name = (String) arg0.getItemAtPosition(position);
-                new AlertDialog.Builder(getContext())
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .setTitle("Accept request to share?")
-                        .setMessage("Accept request to share with user \"" + name + "\"?")
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-                                // Create an instance of Fragment
-                                EventViewDynamic frag = new EventViewDynamic();
-
-                                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-
-                                // Replace whatever is in the fragment_container view with this fragment,
-                                // and add the transaction to the back stack so the user can navigate back
-                                transaction.replace(R.id.fragment_container, frag);
-
-                                // Commit the transaction
-                                transaction.commit();
-                            }
-
-                        })
-                        .setNegativeButton("No", null)
-                        .show();
-            }
-        });
+        new GetFriends().execute();
 
         return myView;
     }
@@ -155,6 +125,183 @@ public class Requests extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
+    }
+
+    private class GetFriends extends AsyncTask<Void, Void, String> {
+
+        private final String USERNAME_URI = DB_BASE + "user/";
+        String result;
+
+        /**
+         * This method extracts text from the HTTP response entity.
+         *
+         * @param entity
+         * @return
+         * @throws IllegalStateException
+         * @throws IOException
+         */
+        protected String getASCIIContentFromEntity(HttpEntity entity) throws IllegalStateException, IOException {
+            InputStream in = entity.getContent();
+            StringBuffer out = new StringBuffer();
+            int n = 1;
+            while (n > 0) {
+                byte[] b = new byte[4096];
+                n = in.read(b);
+                if (n > 0) out.append(new String(b, 0, n));
+            }
+            return out.toString();
+        }
+
+        /**
+         * This method issues the HTTP GET request.
+         *
+         * @param params
+         * @return
+         */
+        @Override
+        protected String doInBackground(Void... params) {
+            HttpClient httpClient = new DefaultHttpClient();
+            HttpContext localContext = new BasicHttpContext();
+            HttpGet httpGet = new HttpGet(USERNAME_URI + "1/friended/");
+            String text = null;
+            try {
+                HttpResponse response = httpClient.execute(httpGet, localContext);
+                HttpEntity entity = response.getEntity();
+                text = getASCIIContentFromEntity(entity);
+            } catch (Exception e) {
+                return e.getLocalizedMessage();
+            }
+            return text;
+        }
+
+        /**
+         * The method runs before the others.
+         */
+        protected void onPreExecute() {
+        }
+
+        /**
+         * The method takes the results of the request, when they arrive, and updates the interface.
+         *
+         * @param results
+         */
+        protected void onPostExecute(String results) {
+            if (results != null) {
+                result = results;
+                ListView eventList = (ListView) me.findViewById(R.id.requestList);
+                String[] friends = result.split(",");
+                //Set adapter with the string array of events from saved data, input them into list
+                ArrayAdapter<String> myAdapter=new
+                        ArrayAdapter<String>(
+                        getContext(),
+                        android.R.layout.simple_list_item_1,
+                        friends);
+                eventList.setAdapter(myAdapter);
+
+                eventList.setClickable(true);
+                eventList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                    @Override
+                    public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+                        String name = (String) arg0.getItemAtPosition(position);
+                        userName = name;
+                        new AlertDialog.Builder(getContext())
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .setTitle("Accept request to share?")
+                                .setMessage("Accept request to share with user \"" + name + "\"?")
+                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        new AcceptFriend().execute();
+
+                                        // Create an instance of Fragment
+                                        EventViewDynamic frag = new EventViewDynamic();
+
+                                        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+                                        // Replace whatever is in the fragment_container view with this fragment,
+                                        // and add the transaction to the back stack so the user can navigate back
+                                        transaction.replace(R.id.fragment_container, frag);
+
+                                        // Commit the transaction
+                                        transaction.commit();
+                                    }
+
+                                })
+                                .setNegativeButton("No", null)
+                                .show();
+                    }
+                });
+            } else result = "uhoh";
+        }
+
+    }
+
+    private class AcceptFriend extends AsyncTask<Void, Void, String> {
+
+        private final String USERNAME_URI = DB_BASE + "user/";
+        String result;
+
+        /**
+         * This method extracts text from the HTTP response entity.
+         *
+         * @param entity
+         * @return
+         * @throws IllegalStateException
+         * @throws IOException
+         */
+        protected String getASCIIContentFromEntity(HttpEntity entity) throws IllegalStateException, IOException {
+            InputStream in = entity.getContent();
+            StringBuffer out = new StringBuffer();
+            int n = 1;
+            while (n > 0) {
+                byte[] b = new byte[4096];
+                n = in.read(b);
+                if (n > 0) out.append(new String(b, 0, n));
+            }
+            return out.toString();
+        }
+
+        /**
+         * This method issues the HTTP GET request.
+         *
+         * @param params
+         * @return
+         */
+        @Override
+        protected String doInBackground(Void... params) {
+            HttpClient httpClient = new DefaultHttpClient();
+            HttpContext localContext = new BasicHttpContext();
+            HttpPut httpPut = new HttpPut(USERNAME_URI + "1/friendBy/" + userName);
+            String text = null;
+            try {
+                HttpResponse response = httpClient.execute(httpPut, localContext);
+                HttpEntity entity = response.getEntity();
+                text = getASCIIContentFromEntity(entity);
+            } catch (Exception e) {
+                return e.getLocalizedMessage();
+            }
+            return text;
+        }
+
+        /**
+         * The method runs before the others.
+         */
+        protected void onPreExecute() {
+        }
+
+        /**
+         * The method takes the results of the request, when they arrive, and updates the interface.
+         *
+         * @param results
+         */
+        protected void onPostExecute(String results) {
+            if (results != null) {
+                result = results;
+            } else result = "uhoh";
+        }
+
     }
 
 }

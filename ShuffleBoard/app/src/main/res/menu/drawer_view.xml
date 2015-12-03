@@ -19,7 +19,7 @@
                 android:id="@+id/nav_add_person"
                 android:onClick="goToAddPerson"
 
-                android:title="Add Person" />
+                android:title="Share" />
             <item
                 android:id="@+id/nav_requests"
                 android:onClick="goToRequests"

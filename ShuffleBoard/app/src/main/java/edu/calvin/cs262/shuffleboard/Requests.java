@@ -222,7 +222,7 @@ public class Requests extends Fragment {
 
                                         // Replace whatever is in the fragment_container view with this fragment,
                                         // and add the transaction to the back stack so the user can navigate back
-                                        transaction.replace(R.id.fragment_container, frag);
+                                        transaction.replace(R.id.flContent, frag);
 
                                         // Commit the transaction
                                         transaction.commit();

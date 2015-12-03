@@ -77,15 +77,6 @@ public class EventViewDynamic extends Fragment {
         // Inflate the layout for this fragment
         final View myView = inflater.inflate(R.layout.fragment_event_view_dynamic, container, false);
 
-/*        // Get the ViewPager and set it's PagerAdapter so that it can display items
-        ViewPager viewPager = (ViewPager) myView.findViewById(R.id.viewpager);
-        viewPager.setAdapter(new SampleFragmentPagerAdapter(getFragmentManager(),
-                getContext()));
-
-        // Give the TabLayout the ViewPager
-        TabLayout tabLayout = (TabLayout) myView.findViewById(R.id.sliding_tabs);
-        tabLayout.setupWithViewPager(viewPager);*/
-
         ListView eventList = (ListView) myView.findViewById(R.id.listView);
 
        //align button object with UI buttons
@@ -111,27 +102,6 @@ public class EventViewDynamic extends Fragment {
             }
         });
 
-/*
-        //when button is clicked, send user to UI page for viewing static events
-        goToStaticEventButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Create an instance of ExampleFragment
-                EventViewStatic frag = new EventViewStatic();
-
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-
-                // Replace whatever is in the flContent view with this fragment,
-                // and add the transaction to the back stack so the user can navigate back
-                transaction.replace(R.id.flContent, frag);
-                //transaction.addToBackStack(null);
-
-                // Commit the transaction
-                transaction.commit();
-            }
-        });
-*/
-
         //Set adapter with the string array of events from saved data, input them into list
         ArrayAdapter<String> myAdapter=new
                 ArrayAdapter<String>(
@@ -148,17 +118,6 @@ public class EventViewDynamic extends Fragment {
             mListener.onFragmentInteraction(uri);
         }
     }
-
-/*    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            mListener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }*/
 
     @Override
     public void onDetach() {

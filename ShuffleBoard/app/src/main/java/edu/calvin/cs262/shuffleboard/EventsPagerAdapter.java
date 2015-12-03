@@ -38,4 +38,6 @@ public class EventsPagerAdapter extends FragmentPagerAdapter {
         // Generate title based on item position
         return tabTitles[position];
     }
+
+
 }

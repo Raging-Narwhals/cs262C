@@ -8,14 +8,13 @@ import android.support.v4.app.FragmentPagerAdapter;
 /**
  * Defines the tabs for the list view for static and dynamic events
  */
-public class SampleFragmentPagerAdapter extends FragmentPagerAdapter {
+public class EventsPagerAdapter extends FragmentPagerAdapter {
     final int PAGE_COUNT = 2;
     private String tabTitles[] = new String[] { "Static Events", "Dynamic Events" };
-    private Context context;
 
-    public SampleFragmentPagerAdapter(FragmentManager fm, Context context) {
+    public EventsPagerAdapter(FragmentManager fm) {
         super(fm);
-        this.context = context;
+
     }
 
     @Override
@@ -25,7 +24,13 @@ public class SampleFragmentPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return PageFragment.newInstance(position + 1);
+        if (position == 0) {
+            // Static Event View
+            return PageFragment.newInstance(position + 1);
+        } else {
+            // Static Event View
+            return PageFragment.newInstance(position + 1);
+        }
     }
 
     @Override

@@ -84,7 +84,6 @@ public class AddPerson extends Fragment {
         View myView = inflater.inflate(R.layout.fragment_add_person, container, false);
         me = myView;
 
-
         new GetFriends().execute();
 
         //EditText name = (EditText) myView.findViewById(R.id.name);
@@ -111,9 +110,9 @@ public class AddPerson extends Fragment {
 
                                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
-                                // Replace whatever is in the fragment_container view with this fragment,
+                                // Replace whatever is in the flContent view with this fragment,
                                 // and add the transaction to the back stack so the user can navigate back
-                                transaction.replace(R.id.fragment_container, frag);
+                                transaction.replace(R.id.flContent, frag);
 
                                 // Commit the transaction
                                 transaction.commit();

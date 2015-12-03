@@ -10,12 +10,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <!-- The ActionBar displayed at the top -->
-        <include
-            layout="@layout/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
         <GridLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

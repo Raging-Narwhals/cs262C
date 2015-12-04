@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
 
 
 /**
@@ -114,7 +115,11 @@ public class EventStaticCreate extends Fragment {
                 transaction.replace(R.id.flContent, frag);
                 //transaction.addToBackStack(null);
                 // Commit the transaction
+
                 transaction.commit();
+
+                // also supports Toast.LENGTH_LONG
+                Toast.makeText(getContext(), "Static Event created", Toast.LENGTH_SHORT).show();
             }
         });
 

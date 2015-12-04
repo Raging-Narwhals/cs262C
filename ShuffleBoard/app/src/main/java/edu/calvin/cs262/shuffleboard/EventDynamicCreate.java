@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.Vector;
 
@@ -111,6 +112,9 @@ public class EventDynamicCreate extends Fragment {
                 //transaction.addToBackStack(null);
                 // Commit the transaction
                 transaction.commit();
+
+                // also supports Toast.LENGTH_LONG
+                Toast.makeText(getContext(), "Dynamic Event created", Toast.LENGTH_SHORT).show();
             }
         });
 

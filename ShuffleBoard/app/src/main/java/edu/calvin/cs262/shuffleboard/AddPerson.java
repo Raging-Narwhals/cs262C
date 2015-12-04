@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -109,7 +110,7 @@ public class AddPerson extends Fragment {
                             public void onClick(DialogInterface dialog, int which) {
 
                                 // Create an instance of Fragment
-                                ScheduleFragment frag = new ScheduleFragment();
+                                AddPerson frag = new AddPerson();
 
                                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
@@ -119,6 +120,9 @@ public class AddPerson extends Fragment {
 
                                 // Commit the transaction
                                 transaction.commit();
+
+                                // also supports Toast.LENGTH_LONG
+                                Toast.makeText(getContext(), "Person added", Toast.LENGTH_SHORT).show();
                             }
 
                         })

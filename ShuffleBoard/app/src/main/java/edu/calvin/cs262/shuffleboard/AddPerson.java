@@ -88,7 +88,7 @@ public class AddPerson extends Fragment {
         me = myView;
 
 
-        new GetFriends().execute();
+//        new GetFriends().execute();
 
         //EditText name = (EditText) myView.findViewById(R.id.name);
         Button searchPeopleButton = (Button) myView.findViewById(R.id.search_people_button);

@@ -83,7 +83,7 @@ public class Requests extends Fragment {
         View myView = inflater.inflate(R.layout.fragment_requests, container, false);
         me = myView;
 
-        new GetFriends().execute();
+//        new GetFriends().execute();
 
         return myView;
     }

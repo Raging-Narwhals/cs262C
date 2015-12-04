@@ -18,7 +18,7 @@ import android.widget.ListView;
 import java.io.IOException;
 import java.io.InputStream;
 
-/*
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -27,7 +27,7 @@ import org.apache.http.client.methods.HttpPut;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
-*/
+
 
 
 /**
@@ -46,7 +46,7 @@ public class AddPerson extends Fragment {
     private OnFragmentInteractionListener mListener;
 
     View me;
-    static String DB_BASE = "http://153.106.116.66:9998/shuffle/";
+    static String DB_BASE = "http://153.106.116.65:9998/shuffle/";
 
     /**
      * Use this factory method to create a new instance of
@@ -86,7 +86,7 @@ public class AddPerson extends Fragment {
         View myView = inflater.inflate(R.layout.fragment_add_person, container, false);
         me = myView;
 
-        /*
+
         new GetFriends().execute();
 
         //EditText name = (EditText) myView.findViewById(R.id.name);
@@ -126,7 +126,7 @@ public class AddPerson extends Fragment {
                         .show();
             }
         });
-*/
+
         return myView;
     }
 
@@ -170,20 +170,20 @@ public class AddPerson extends Fragment {
         public void onFragmentInteraction(Uri uri);
     }
 
-    /*private class SearchUser extends AsyncTask<Void, Void, String> {
+    private class SearchUser extends AsyncTask<Void, Void, String> {
 
         private final String USERNAME_URI = DB_BASE + "user/";
         String result;
         String userName;
 
-        *//**
+        /**
          * This method extracts text from the HTTP response entity.
          *
          * @param entity
          * @return
          * @throws IllegalStateException
          * @throws IOException
-         *//*
+         */
         protected String getASCIIContentFromEntity(HttpEntity entity) throws IllegalStateException, IOException {
             InputStream in = entity.getContent();
             StringBuffer out = new StringBuffer();
@@ -196,12 +196,12 @@ public class AddPerson extends Fragment {
             return out.toString();
         }
 
-        *//**
+        /**
          * This method issues the HTTP GET request.
          *
          * @param params
          * @return
-         *//*
+         */
         @Override
         protected String doInBackground(Void... params) {
             HttpClient httpClient = new DefaultHttpClient();
@@ -218,19 +218,19 @@ public class AddPerson extends Fragment {
             return text;
         }
 
-        *//**
+        /**
          * The method runs before the others.
-         *//*
+         */
         protected void onPreExecute() {
             EditText name = (EditText) me.findViewById(R.id.searchPeopleTextField);
             userName = name.getText().toString();
         }
 
-        *//**
+        /**
          * The method takes the results of the request, when they arrive, and updates the interface.
          *
          * @param results
-         *//*
+         */
         protected void onPostExecute(String results) {
             if (results != null) {
                 result = results;
@@ -244,14 +244,14 @@ public class AddPerson extends Fragment {
         private final String USERNAME_URI = DB_BASE + "user/";
         String result;
 
-        *//**
+        /**
          * This method extracts text from the HTTP response entity.
          *
          * @param entity
          * @return
          * @throws IllegalStateException
          * @throws IOException
-         *//*
+         */
         protected String getASCIIContentFromEntity(HttpEntity entity) throws IllegalStateException, IOException {
             InputStream in = entity.getContent();
             StringBuffer out = new StringBuffer();
@@ -264,12 +264,12 @@ public class AddPerson extends Fragment {
             return out.toString();
         }
 
-        *//**
+        /**
          * This method issues the HTTP GET request.
          *
          * @param params
          * @return
-         *//*
+         */
         @Override
         protected String doInBackground(Void... params) {
             HttpClient httpClient = new DefaultHttpClient();
@@ -286,17 +286,17 @@ public class AddPerson extends Fragment {
             return text;
         }
 
-        *//**
+        /**
          * The method runs before the others.
-         *//*
+         */
         protected void onPreExecute() {
         }
 
-        *//**
+        /**
          * The method takes the results of the request, when they arrive, and updates the interface.
          *
          * @param results
-         *//*
+         */
         protected void onPostExecute(String results) {
             if (results != null) {
                 result = results;
@@ -312,5 +312,5 @@ public class AddPerson extends Fragment {
             } else result = "uhoh";
         }
 
-    }*/
+    }
 }

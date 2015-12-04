@@ -14,14 +14,14 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-/*import org.apache.http.HttpEntity;
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.BasicHttpContext;
-import org.apache.http.protocol.HttpContext;*/
+import org.apache.http.protocol.HttpContext;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -43,7 +43,7 @@ public class Requests extends Fragment {
     private OnFragmentInteractionListener mListener;
 
     View me;
-    static String DB_BASE = "http://153.106.116.66:9998/shuffle/";
+    static String DB_BASE = "http://153.106.116.65:9998/shuffle/";
     String userName;
 
     /**
@@ -83,7 +83,7 @@ public class Requests extends Fragment {
         View myView = inflater.inflate(R.layout.fragment_requests, container, false);
         me = myView;
 
-//        new GetFriends().execute();
+        new GetFriends().execute();
 
         return myView;
     }
@@ -95,17 +95,17 @@ public class Requests extends Fragment {
         }
     }
 
-/*    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            mListener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
+    /*    @Override
+        public void onAttach(Activity activity) {
+            super.onAttach(activity);
+            try {
+                mListener = (OnFragmentInteractionListener) activity;
+            } catch (ClassCastException e) {
+                throw new ClassCastException(activity.toString()
+                        + " must implement OnFragmentInteractionListener");
+            }
         }
-    }
-*/
+    */
     @Override
     public void onDetach() {
         super.onDetach();
@@ -127,19 +127,19 @@ public class Requests extends Fragment {
         public void onFragmentInteraction(Uri uri);
     }
 
-   /* private class GetFriends extends AsyncTask<Void, Void, String> {
+    private class GetFriends extends AsyncTask<Void, Void, String> {
 
         private final String USERNAME_URI = DB_BASE + "user/";
         String result;
 
-        *//**
+        /**
          * This method extracts text from the HTTP response entity.
          *
          * @param entity
          * @return
          * @throws IllegalStateException
          * @throws IOException
-         *//*
+         */
         protected String getASCIIContentFromEntity(HttpEntity entity) throws IllegalStateException, IOException {
             InputStream in = entity.getContent();
             StringBuffer out = new StringBuffer();
@@ -152,12 +152,12 @@ public class Requests extends Fragment {
             return out.toString();
         }
 
-        *//**
+        /**
          * This method issues the HTTP GET request.
          *
          * @param params
          * @return
-         *//*
+         */
         @Override
         protected String doInBackground(Void... params) {
             HttpClient httpClient = new DefaultHttpClient();
@@ -174,17 +174,17 @@ public class Requests extends Fragment {
             return text;
         }
 
-        *//**
+        /**
          * The method runs before the others.
-         *//*
+         */
         protected void onPreExecute() {
         }
 
-        *//**
+        /**
          * The method takes the results of the request, when they arrive, and updates the interface.
          *
          * @param results
-         *//*
+         */
         protected void onPostExecute(String results) {
             if (results != null) {
                 result = results;
@@ -243,14 +243,14 @@ public class Requests extends Fragment {
         private final String USERNAME_URI = DB_BASE + "user/";
         String result;
 
-        *//**
+        /**
          * This method extracts text from the HTTP response entity.
          *
          * @param entity
          * @return
          * @throws IllegalStateException
          * @throws IOException
-         *//*
+         */
         protected String getASCIIContentFromEntity(HttpEntity entity) throws IllegalStateException, IOException {
             InputStream in = entity.getContent();
             StringBuffer out = new StringBuffer();
@@ -263,12 +263,12 @@ public class Requests extends Fragment {
             return out.toString();
         }
 
-        *//**
+        /**
          * This method issues the HTTP GET request.
          *
          * @param params
          * @return
-         *//*
+         */
         @Override
         protected String doInBackground(Void... params) {
             HttpClient httpClient = new DefaultHttpClient();
@@ -285,23 +285,23 @@ public class Requests extends Fragment {
             return text;
         }
 
-        *//**
+        /**
          * The method runs before the others.
-         *//*
+         */
         protected void onPreExecute() {
         }
 
-        *//**
+        /**
          * The method takes the results of the request, when they arrive, and updates the interface.
          *
          * @param results
-         *//*
+         */
         protected void onPostExecute(String results) {
             if (results != null) {
                 result = results;
             } else result = "uhoh";
         }
 
-    }*/
+    }
 
 }

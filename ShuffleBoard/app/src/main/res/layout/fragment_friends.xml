@@ -5,35 +5,41 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="80dp"
-        android:id="@+id/linearLayout">
+        android:id="@+id/linearLayout"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true">
 
-        <EditText
-            android:layout_width="160dp"
-            android:layout_height="40dp"
-            android:id="@+id/searchPeopleTextField"
-            android:width="160dp"
-            android:gravity="center_horizontal"
-            android:layout_weight="1"
-            android:layout_marginLeft="0dp"
-            android:layout_marginStart="0dp"
-            android:hint="Person ID" />
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/username_text_input_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/searchPeopleTextField"
+                android:layout_width="160dp"
+                android:layout_height="40dp"
+                android:hint="@string/username_hint"
+                android:singleLine="true"
+                android:inputType="textPersonName"/>
+
+        </android.support.design.widget.TextInputLayout>
 
         <Button
             android:layout_width="160dp"
             android:layout_height="40dp"
-            android:text="Send Request"
+            android:text="@string/add_friend"
             android:id="@+id/search_people_button" />
     </LinearLayout>
 
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="30dp"
-        android:layout_below="@+id/linearLayout"
-        android:id="@+id/sharedList" />
+        android:layout_height="wrap_content"
+        android:id="@+id/sharedList"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="20dp"/>
 
 </RelativeLayout>

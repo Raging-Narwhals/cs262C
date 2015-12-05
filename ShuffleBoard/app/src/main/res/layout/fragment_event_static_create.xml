@@ -10,7 +10,6 @@
         android:text="New Static Event"
         android:id="@+id/textView"
         android:layout_gravity="center_horizontal"
-        android:layout_below="@+id/include"
         android:layout_centerHorizontal="true" />
 
     <EditText

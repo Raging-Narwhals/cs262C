@@ -1,6 +1,9 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" tools:context="edu.calvin.cs262.shuffleboard.AddPerson">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="edu.calvin.cs262.shuffleboard.AddPerson"
+    android:orientation="vertical">
 
     <LinearLayout
         android:orientation="horizontal"
@@ -35,11 +38,23 @@
             android:id="@+id/search_people_button" />
     </LinearLayout>
 
+    <View style="@style/Divider"
+        android:id="@+id/dividerView"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Friends List"
+        android:id="@+id/textView2"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="20dp" />
+
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/sharedList"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="20dp"/>
+        android:layout_marginLeft="20dp" />
 
-</RelativeLayout>
+</LinearLayout>

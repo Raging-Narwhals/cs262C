@@ -116,9 +116,9 @@ public class MainActivity extends AppCompatActivity {
         mDrawer.closeDrawers();
     }
 
-    public void goToAddPerson(MenuItem item) {
+    public void goToFriends(MenuItem item) {
         // Create an instance of Fragment
-        AddPerson frag = new AddPerson();
+        Friends frag = new Friends();
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 

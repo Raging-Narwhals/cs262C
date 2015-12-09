@@ -1,6 +1,7 @@
 package edu.calvin.cs262.shuffleboard;
 
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -12,6 +13,17 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPut;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.protocol.BasicHttpContext;
+import org.apache.http.protocol.HttpContext;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Vector;
 
 
@@ -29,6 +41,9 @@ public class EventDynamicCreate extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    View me;
+    String DB_BASE = new GlobalVariables().DB_BASE;
 
     DynamicEvent newEvent;
     Button createButton;
@@ -72,6 +87,7 @@ public class EventDynamicCreate extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View myView = inflater.inflate(R.layout.fragment_event_dynamic_create, container, false);
+        me = myView;
 
         // Define variables to access the editText objects
         name = (EditText) myView.findViewById(R.id.name);
@@ -102,6 +118,8 @@ public class EventDynamicCreate extends Fragment {
                 }
 
                 newEvent = new DynamicEvent(timesPerWeekNum, durationNum, name.getText().toString(), 0, dayTimes);
+
+                new CreateDynamicEvent().execute();
 
                 // Go back to the StaticEvent fragment
                 ScheduleFragment frag = new ScheduleFragment();
@@ -148,5 +166,72 @@ public class EventDynamicCreate extends Fragment {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
     }
+
+    private class CreateDynamicEvent extends AsyncTask<Void, Void, String> {
+
+        private final String USERNAME_URI = DB_BASE + "user/";
+        String result;
+
+        /**
+         * This method extracts text from the HTTP response entity.
+         *
+         * @param entity
+         * @return
+         * @throws IllegalStateException
+         * @throws IOException
+         */
+        protected String getASCIIContentFromEntity(HttpEntity entity) throws IllegalStateException, IOException {
+            InputStream in = entity.getContent();
+            StringBuffer out = new StringBuffer();
+            int n = 1;
+            while (n > 0) {
+                byte[] b = new byte[4096];
+                n = in.read(b);
+                if (n > 0) out.append(new String(b, 0, n));
+            }
+            return out.toString();
+        }
+
+        /**
+         * This method issues the HTTP GET request.
+         *
+         * @param params
+         * @return
+         */
+        @Override
+        protected String doInBackground(Void... params) {
+            HttpClient httpClient = new DefaultHttpClient();
+            HttpContext localContext = new BasicHttpContext();
+            HttpPut httpPut = new HttpPut(USERNAME_URI + "1/events/dynamic/addLong/" + newEvent.toDB());
+            String text = null;
+            try {
+                httpPut.setEntity(new StringEntity(newEvent.toString()));
+                HttpResponse response = httpClient.execute(httpPut, localContext);
+                HttpEntity entity = response.getEntity();
+                text = getASCIIContentFromEntity(entity);
+            } catch (Exception e) {
+                return e.getLocalizedMessage();
+            }
+            return text;
+        }
+
+        /**
+         * The method runs before the others.
+         */
+        protected void onPreExecute() {
+        }
+
+        /**
+         * The method takes the results of the request, when they arrive, and updates the interface.
+         *
+         * @param results
+         */
+        protected void onPostExecute(String results) {
+            if (results != null) {
+            } else result = "uhoh";
+        }
+
+    }
+
 
 }

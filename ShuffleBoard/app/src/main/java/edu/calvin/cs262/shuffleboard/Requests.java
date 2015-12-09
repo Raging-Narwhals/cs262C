@@ -43,7 +43,7 @@ public class Requests extends Fragment {
     private OnFragmentInteractionListener mListener;
 
     View me;
-    static String DB_BASE = "http://153.106.116.65:9998/shuffle/";
+    String DB_BASE = new GlobalVariables().DB_BASE;
     String userName;
 
     /**
@@ -83,7 +83,7 @@ public class Requests extends Fragment {
         View myView = inflater.inflate(R.layout.fragment_requests, container, false);
         me = myView;
 
-//        new GetFriends().execute();
+        new GetFriends().execute();
 
         return myView;
     }

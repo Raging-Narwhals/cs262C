@@ -30,7 +30,6 @@ import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
 
 
-
 /**
  * A simple UI for the user to search for other users in order to request calendar sharing
  */
@@ -47,7 +46,7 @@ public class Friends extends Fragment {
     private OnFragmentInteractionListener mListener;
 
     View me;
-    static String DB_BASE = "http://153.106.116.65:9998/shuffle/";
+    String DB_BASE = new GlobalVariables().DB_BASE;
 
     /**
      * Use this factory method to create a new instance of
@@ -88,7 +87,7 @@ public class Friends extends Fragment {
         me = myView;
 
 
-//        new GetFriends().execute();
+        new GetFriends().execute();
 
         //EditText name = (EditText) myView.findViewById(R.id.name);
         Button searchPeopleButton = (Button) myView.findViewById(R.id.search_people_button);

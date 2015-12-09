@@ -13,6 +13,7 @@ public class DynamicEvent {
     double length;  // How long the event is
     String name;  // Short phrase describing the events
     int ownerID;  // The id of the owner in the database
+    Boolean[] daysBools = {false, false, false, false, false, false, false};
     Vector<Triple> days;
     String[] dayNames = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
 
@@ -35,6 +36,9 @@ public class DynamicEvent {
         name = newName;
         ownerID = owner;
         days = day;
+        for (int i =0; i < day.size(); i++) {
+            daysBools[days.elementAt(i).getDay()] = true;
+        }
     }
 
     /*
@@ -143,5 +147,13 @@ public class DynamicEvent {
         }
         ret = ret.substring(0,ret.length()-2);*/
         return ret;
+    }
+
+    public String toDB() {
+        String daysString = "";
+        for (int i=0; i < 7; i++) {
+            daysString += daysBools[i] ? "1" : "0";
+        }
+        return timesPerWeek + "__" + length + "__" + daysString + "__" + name;
     }
 }

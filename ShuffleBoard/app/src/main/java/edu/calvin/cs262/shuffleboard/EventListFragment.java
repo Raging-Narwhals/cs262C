@@ -62,9 +62,9 @@ public class EventListFragment extends Fragment {
         //Set adapter with the string array of events from saved data, input them into list
         //Change depending on list
         if (mPage == 1) {
-//            new GetStaticEvents().execute();
+            new GetStaticEvents().execute();
         } else {
-//            new GetDynamicEvents().execute();
+            new GetDynamicEvents().execute();
         }
 
         return myView;

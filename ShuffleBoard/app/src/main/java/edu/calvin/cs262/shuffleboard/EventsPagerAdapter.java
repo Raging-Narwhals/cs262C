@@ -9,7 +9,7 @@ import android.support.v4.app.FragmentPagerAdapter;
  */
 public class EventsPagerAdapter extends FragmentPagerAdapter {
     final int PAGE_COUNT = 2;
-    private String tabTitles[] = new String[] { "Static Events", "Dynamic Events" };
+    private String tabTitles[] = new String[] { "Fixed Events", "Flexible Events" };
 
     public EventsPagerAdapter(FragmentManager fm) {
         super(fm);

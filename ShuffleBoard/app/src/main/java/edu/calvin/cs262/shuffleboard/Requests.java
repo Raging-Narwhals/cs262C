@@ -273,7 +273,7 @@ public class Requests extends Fragment {
         protected String doInBackground(Void... params) {
             HttpClient httpClient = new DefaultHttpClient();
             HttpContext localContext = new BasicHttpContext();
-            HttpPut httpPut = new HttpPut(USERNAME_URI + "1/friendBy/" + userName);
+            HttpPut httpPut = new HttpPut(USERNAME_URI + "1/friendName/add/" + userName);
             String text = null;
             try {
                 HttpResponse response = httpClient.execute(httpPut, localContext);

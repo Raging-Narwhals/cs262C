@@ -11,13 +11,7 @@ that users have in common, such that a new event or meeting can be conveniently 
 
 ## Now let us take into consideration the all-too common case of Billy: 
                   
-Billy is extremely busy this coming week, with events, meetings, chores around the house, and running errands.  
-He has tried putting together a schedule with paper and pencil and has finally found a schedule that will work 
-well enough.  Then he learns of another meeting he is expected to be at in the middle of the week.  He looks at his 
-schedule and knows it will be a lot of work to accommodate this new addition.  This is where Shuffle Board would be 
-helpful. If he had been using Shuffle Board, Billy could have easily entered in this new meeting to his list of events, 
-and then looked at his available options. Shuffle Board will adapt to the new event and display his options for a 
-schedule. 
+Billy is extremely busy this coming week, with events, meetings, chores around the house, and running errands. He has tried putting together a schedule with paper and pencil and has finally found a schedule that will work well enough.  Then he learns of another meeting he is expected to be at in the middle of the week.  He looks at his schedule and knows it will be a lot of work to accommodate this new addition.  This is where Shuffle Board would be helpful. If he had been using Shuffle Board, Billy could have easily entered in this new meeting to his list of events, and then looked at his available options. Shuffle Board will adapt to the new event and display his options for a schedule. 
 
 # Unique things about Shuffle Board 
                         

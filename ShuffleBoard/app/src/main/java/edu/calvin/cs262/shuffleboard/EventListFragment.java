@@ -245,7 +245,7 @@ public class EventListFragment extends Fragment {
                 ArrayAdapter<String> myAdapter=new
                         ArrayAdapter<String>(
                         getContext(),
-                        android.R.layout.simple_list_item_1,
+                        R.layout.event_item,
                         myEvents);
                 eventList.setAdapter(myAdapter);
 

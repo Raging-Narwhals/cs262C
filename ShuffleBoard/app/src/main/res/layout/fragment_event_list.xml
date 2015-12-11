@@ -8,5 +8,5 @@
     android:smoothScrollbar="true"
     android:headerDividersEnabled="false"
     android:textFilterEnabled="false"
-    android:divider="#124b68"
+    android:divider="@android:color/darker_gray"
     android:dividerHeight="1dp" />

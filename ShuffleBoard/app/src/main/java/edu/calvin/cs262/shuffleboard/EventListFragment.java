@@ -3,9 +3,11 @@ package edu.calvin.cs262.shuffleboard;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -31,6 +33,8 @@ public class EventListFragment extends Fragment {
 
     View me;
     String DB_BASE = new GlobalVariables().DB_BASE;
+    ArrayList<String> staticEventIDs = new ArrayList<String>();
+    ArrayList<String> dynamicEventIDs = new ArrayList<String>();
 
     public static EventListFragment newInstance(int page) {
         Bundle args = new Bundle();
@@ -239,6 +243,7 @@ public class EventListFragment extends Fragment {
                     newEvent = new DynamicEvent(Integer.parseInt(events[2]), Double.parseDouble(events[3]), events[1], 1);
                     //TODO add the new event to the listview
                     myEvents.add(newEvent.toString());
+                    dynamicEventIDs.add(events[0]);
                 }
 
                 ListView eventList = (ListView) me.findViewById(R.id.listView);
@@ -249,8 +254,40 @@ public class EventListFragment extends Fragment {
                         myEvents);
                 eventList.setAdapter(myAdapter);
 
+                eventList.setClickable(true);
+                eventList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                    @Override
+                    public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+                        ScheduleFragment sched = (ScheduleFragment) getParentFragment();
+                        sched.editDynamic(Integer.parseInt(dynamicEventIDs.get(position)), (String) arg0.getItemAtPosition(position));
+                       /* int eventID = Integer.parseInt(dynamicEventIDs.get(position));
+                        EventDynamicCreate frag = new EventDynamicCreate();
+
+                        //Bundle the event info
+                        String eventInfo = (String) arg0.getItemAtPosition(position);
+                        String[] eventInfoArray = eventInfo.split("\n");
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("id", eventID);
+                        bundle.putString("times", eventInfoArray[2].split(" ")[1]);
+                        bundle.putString("duration", eventInfoArray[1].split(" ")[1]);
+                        bundle.putString("name", eventInfoArray[0]);
+                        frag.setArguments(bundle);
+                        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+                        // Replace whatever is in the flContent view with this fragment,
+                        // and add the transaction to the back stack so the user can navigate back
+                        transaction.replace(R.id.flContent, frag);
+                        transaction.addToBackStack("back");
+
+                        // Commit the transaction
+                        transaction.commit();*/
+                    }
+                });
+
             } else result = "uhoh";
         }
 
     }
+
 }

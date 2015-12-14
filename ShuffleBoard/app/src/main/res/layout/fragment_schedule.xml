@@ -39,5 +39,4 @@
         app:layout_anchorGravity="bottom|right|end"
         android:clickable="true" />
 
-
 </android.support.design.widget.CoordinatorLayout>

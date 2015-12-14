@@ -45,6 +45,7 @@ public class EventDynamicCreate extends Fragment {
     View me;
     String DB_BASE = new GlobalVariables().DB_BASE;
 
+    int eventID = -1;
     DynamicEvent newEvent;
     Button createButton;
     EditText name, duration, timesPerWeek;
@@ -89,6 +90,9 @@ public class EventDynamicCreate extends Fragment {
         View myView = inflater.inflate(R.layout.fragment_event_dynamic_create, container, false);
         me = myView;
 
+        //If editing an existing event, the eventID will be set here
+        eventID = getArguments().getInt("id");
+
         // Define variables to access the editText objects
         name = (EditText) myView.findViewById(R.id.name);
         duration = (EditText) myView.findViewById(R.id.duration);
@@ -105,36 +109,77 @@ public class EventDynamicCreate extends Fragment {
 
         // Create button
         createButton = (Button) myView.findViewById(R.id.create);
+
         // onClick for the create button
-        createButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int durationNum = Integer.valueOf(duration.getText().toString());
-                int timesPerWeekNum = Integer.valueOf(timesPerWeek.getText().toString());
-                for (int i=0; i < 7; i++) {
-                    if (dayCheckBoxes[i].isChecked()) {
-                        dayTimes.add(new Triple(i, 0, 47));
+        if (eventID==-1) {
+            createButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int durationNum = Integer.valueOf(duration.getText().toString());
+                    int timesPerWeekNum = Integer.valueOf(timesPerWeek.getText().toString());
+                    for (int i = 0; i < 7; i++) {
+                        if (dayCheckBoxes[i].isChecked()) {
+                            dayTimes.add(new Triple(i, 0, 47));
+                        }
                     }
+
+                    newEvent = new DynamicEvent(timesPerWeekNum, durationNum, name.getText().toString(), 0, dayTimes);
+
+                    new CreateDynamicEvent().execute();
+
+                    // Go back to the StaticEvent fragment
+                    ScheduleFragment frag = new ScheduleFragment();
+                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                    // Replace whatever is in the flContent view with this fragment,
+                    // and add the transaction to the back stack so the user can navigate back
+                    transaction.replace(R.id.flContent, frag);
+                    //transaction.addToBackStack(null);
+                    // Commit the transaction
+                    transaction.commit();
+
+                    // also supports Toast.LENGTH_LONG
+                    Toast.makeText(getContext(), "Dynamic Event created", Toast.LENGTH_SHORT).show();
                 }
+            });
+        } else {
 
-                newEvent = new DynamicEvent(timesPerWeekNum, durationNum, name.getText().toString(), 0, dayTimes);
+            String eventTimes = getArguments().getString("times");
+            timesPerWeek.setText(eventTimes);
+            String eventDuration = getArguments().getString("duration");
+            duration.setText(eventDuration);
+            String eventName = getArguments().getString("name");
+            name.setText(eventName);
 
-                new CreateDynamicEvent().execute();
+            createButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Float durationNum = Float.valueOf(duration.getText().toString());
+                    int timesPerWeekNum = Integer.valueOf(timesPerWeek.getText().toString());
+                    for (int i = 0; i < 7; i++) {
+                        if (dayCheckBoxes[i].isChecked()) {
+                            dayTimes.add(new Triple(i, 0, 47));
+                        }
+                    }
 
-                // Go back to the StaticEvent fragment
-                ScheduleFragment frag = new ScheduleFragment();
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                // Replace whatever is in the flContent view with this fragment,
-                // and add the transaction to the back stack so the user can navigate back
-                transaction.replace(R.id.flContent, frag);
-                //transaction.addToBackStack(null);
-                // Commit the transaction
-                transaction.commit();
+                    newEvent = new DynamicEvent(timesPerWeekNum, durationNum, name.getText().toString(), 0, dayTimes);
 
-                // also supports Toast.LENGTH_LONG
-                Toast.makeText(getContext(), "Dynamic Event created", Toast.LENGTH_SHORT).show();
-            }
-        });
+                    new EditDynamicEvent().execute();
+
+                    // Go back to the StaticEvent fragment
+                    ScheduleFragment frag = new ScheduleFragment();
+                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                    // Replace whatever is in the flContent view with this fragment,
+                    // and add the transaction to the back stack so the user can navigate back
+                    transaction.replace(R.id.flContent, frag);
+                    //transaction.addToBackStack(null);
+                    // Commit the transaction
+                    transaction.commit();
+
+                    // also supports Toast.LENGTH_LONG
+                    Toast.makeText(getContext(), "Dynamic Event created", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
 
         return myView;
     }
@@ -233,5 +278,69 @@ public class EventDynamicCreate extends Fragment {
 
     }
 
+    private class EditDynamicEvent extends AsyncTask<Void, Void, String> {
 
+        private final String USERNAME_URI = DB_BASE + "user/";
+        String result;
+
+        /**
+         * This method extracts text from the HTTP response entity.
+         *
+         * @param entity
+         * @return
+         * @throws IllegalStateException
+         * @throws IOException
+         */
+        protected String getASCIIContentFromEntity(HttpEntity entity) throws IllegalStateException, IOException {
+            InputStream in = entity.getContent();
+            StringBuffer out = new StringBuffer();
+            int n = 1;
+            while (n > 0) {
+                byte[] b = new byte[4096];
+                n = in.read(b);
+                if (n > 0) out.append(new String(b, 0, n));
+            }
+            return out.toString();
+        }
+
+        /**
+         * This method issues the HTTP GET request.
+         *
+         * @param params
+         * @return
+         */
+        @Override
+        protected String doInBackground(Void... params) {
+            HttpClient httpClient = new DefaultHttpClient();
+            HttpContext localContext = new BasicHttpContext();
+            HttpPut httpPut = new HttpPut(USERNAME_URI + "1/events/dynamic/edit/" + eventID + "/" + newEvent.toDB());
+            String text = null;
+            try {
+                httpPut.setEntity(new StringEntity(newEvent.toString()));
+                HttpResponse response = httpClient.execute(httpPut, localContext);
+                HttpEntity entity = response.getEntity();
+                text = getASCIIContentFromEntity(entity);
+            } catch (Exception e) {
+                return e.getLocalizedMessage();
+            }
+            return text;
+        }
+
+        /**
+         * The method runs before the others.
+         */
+        protected void onPreExecute() {
+        }
+
+        /**
+         * The method takes the results of the request, when they arrive, and updates the interface.
+         *
+         * @param results
+         */
+        protected void onPostExecute(String results) {
+            if (results != null) {
+            } else result = "uhoh";
+        }
+
+    }
 }

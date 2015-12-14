@@ -154,6 +154,6 @@ public class DynamicEvent {
         for (int i=0; i < 7; i++) {
             daysString += daysBools[i] ? "1" : "0";
         }
-        return timesPerWeek + "__" + length + "__" + daysString + "__" + name;
+        return timesPerWeek + "__" + length + "__" + daysString + "__" + name.replace(" ", "%20");
     }
 }

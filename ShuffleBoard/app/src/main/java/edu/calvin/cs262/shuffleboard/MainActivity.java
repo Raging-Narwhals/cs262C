@@ -1,6 +1,8 @@
 package edu.calvin.cs262.shuffleboard;
 
+import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -170,5 +172,11 @@ public class MainActivity extends AppCompatActivity {
 
         // Commit the transaction
         transaction.commit();
+    }
+
+    public void goToHelp(MenuItem item) {
+        Uri webpage = Uri.parse("https://github.com/Raging-Narwhals/cs262C/wiki");
+        Intent webIntent = new Intent(Intent.ACTION_VIEW, webpage);
+        startActivity(webIntent);
     }
 }

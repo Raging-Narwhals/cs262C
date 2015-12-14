@@ -259,8 +259,30 @@ public class EventListFragment extends Fragment {
 
                     @Override
                     public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                        ScheduleFragment sched = (ScheduleFragment) getParentFragment();
-                        sched.editDynamic(Integer.parseInt(dynamicEventIDs.get(position)), (String) arg0.getItemAtPosition(position));
+//                        ScheduleFragment sched = (ScheduleFragment) getParentFragment();
+//                        sched.editDynamic(Integer.parseInt(dynamicEventIDs.get(position)), (String) arg0.getItemAtPosition(position));
+
+                        String eventInfo = (String) arg0.getItemAtPosition(position);
+                        EventDynamicCreate frag = new EventDynamicCreate();
+
+                        //Bundle the event info
+                        String[] eventInfoArray = eventInfo.split("\n");
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("id", Integer.parseInt(dynamicEventIDs.get(position)));
+                        bundle.putString("times", eventInfoArray[2].split(" ")[1]);
+                        bundle.putString("duration", eventInfoArray[1].split(" ")[1]);
+                        bundle.putString("name", eventInfoArray[0]);
+                        frag.setArguments(bundle);
+                        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+
+                        // Replace whatever is in the flContent view with this fragment,
+                        // and add the transaction to the back stack so the user can navigate back
+                        transaction.replace(R.id.flContent, frag);
+                        transaction.addToBackStack("back");
+
+                        // Commit the transaction
+                        transaction.commit();
+                        getActivity().setTitle("Edit Flexible Event");
                        /* int eventID = Integer.parseInt(dynamicEventIDs.get(position));
                         EventDynamicCreate frag = new EventDynamicCreate();
 

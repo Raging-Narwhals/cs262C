@@ -172,11 +172,20 @@ public class MainActivity extends AppCompatActivity {
 
         // Commit the transaction
         transaction.commit();
+        setTitle("Edit Flexible Event");
     }
 
     public void goToHelp(MenuItem item) {
         Uri webpage = Uri.parse("https://github.com/Raging-Narwhals/cs262C/wiki");
         Intent webIntent = new Intent(Intent.ACTION_VIEW, webpage);
         startActivity(webIntent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        // Do extra stuff here
+
+        setTitle(R.string.app_name);
     }
 }

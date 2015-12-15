@@ -1,57 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="New Static Event"
-        android:id="@+id/textView"
-        android:layout_gravity="center_horizontal"
-        android:layout_centerHorizontal="true" />
+        android:orientation="horizontal"
+        android:paddingTop="20dp">
 
-    <EditText
-        android:layout_width="240dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:id="@+id/name"
-        android:hint="Name of Event"
-        android:gravity="center_horizontal"
-        android:layout_below="@+id/textView"
-        android:layout_centerHorizontal="true" />
+        <ImageView
+            android:layout_height="40dp"
+            android:layout_width="40dp"
+            android:src="@mipmap/ic_pencil"
+            android:id="@+id/pencilIcon"
+            android:padding="5dp"/>
 
-    <EditText
-        android:layout_width="140dp"
-        android:layout_height="wrap_content"
-        android:inputType="time"
-        android:ems="10"
-        android:id="@+id/startTime"
-        android:hint="Start Time"
-        android:layout_below="@+id/name"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/name"
+            android:hint="Event Name"
+            android:background="@android:color/transparent"
+            android:padding="10dp"
+            android:singleLine="true"/>
 
-    <EditText
-        android:layout_width="140dp"
+    </LinearLayout>
+
+
+    <View style="@style/Divider"
+        android:id="@+id/divider1"
+        android:layout_below="@+id/name"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="time"
-        android:ems="10"
-        android:id="@+id/endTime"
-        android:hint="End Time"
-        android:layout_alignTop="@+id/startTime"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="30dp" />
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_height="40dp"
+            android:layout_width="40dp"
+            android:src="@mipmap/ic_clock"
+            android:id="@+id/clockIcon"
+            android:padding="5dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/startTime"
+                android:hint="Start Time"
+                android:background="@android:color/transparent"
+                android:padding="10dp"
+                android:singleLine="true"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/endTime"
+                android:hint="End Time"
+                android:background="@android:color/transparent"
+                android:padding="10dp"
+                android:singleLine="true"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <View style="@style/Divider"
+        android:layout_below="@+id/startTime"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_height="40dp"
+            android:layout_width="40dp"
+            android:src="@mipmap/ic_refresh"
+            android:id="@+id/repeatIcon"
+            android:padding="5dp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Repeat"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:background="@android:color/transparent"
+            android:padding="10dp"
+            android:singleLine="true"/>
+
+    </LinearLayout>
 
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="160dp"
         android:layout_below="@+id/startTime"
-        android:layout_marginTop="20dp"
         android:stretchColumns="0,1"
         android:id="@+id/dayTable">
 
@@ -146,8 +198,6 @@
         android:layout_height="wrap_content"
         android:text="Create"
         android:id="@+id/create"
-        android:gravity="center_horizontal"
-        android:layout_below="@+id/dayTable"
-        android:layout_centerHorizontal="true" />
+        android:layout_gravity="center_horizontal"/>
 
-</RelativeLayout>
+</LinearLayout>

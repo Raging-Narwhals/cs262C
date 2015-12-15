@@ -38,9 +38,6 @@
             android:id="@+id/search_people_button" />
     </LinearLayout>
 
-    <View style="@style/Divider"
-        android:id="@+id/dividerView"/>
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -48,13 +45,13 @@
         android:text="Friends List"
         android:id="@+id/textView2"
         android:layout_marginLeft="20dp"
-        android:layout_marginBottom="20dp" />
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"/>
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/sharedList"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="20dp" />
+        android:layout_alignParentLeft="true" />
 
 </LinearLayout>

@@ -116,7 +116,7 @@ public class EventStaticCreate extends Fragment {
                 mTimePicker = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        startTime.setText( f.format(selectedHour) + ":" + f.format(selectedMinute));
+                        startTime.setText( selectedHour + ":" + f.format(selectedMinute));
                     }
                 }, hour, minute, true);//Yes 24 hour time
                 mTimePicker.setTitle("Select Start Time");
@@ -136,7 +136,7 @@ public class EventStaticCreate extends Fragment {
                 mTimePicker = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        endTime.setText( f.format(selectedHour) + ":" + f.format(selectedMinute));
+                        endTime.setText( selectedHour + ":" + f.format(selectedMinute));
                     }
                 }, hour, minute, true);//Yes 24 hour time
                 mTimePicker.setTitle("Select End Time");

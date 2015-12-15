@@ -51,23 +51,71 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <EditText
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/startTime"
-                android:hint="Start Time"
-                android:background="@android:color/transparent"
-                android:padding="10dp"
-                android:singleLine="true"/>
+                android:orientation="horizontal">
 
-            <EditText
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/startTimeText"
+                    android:hint="Start Time"
+                    android:clickable="false"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:background="@android:color/transparent"
+                    android:padding="10dp"
+                    android:singleLine="true"
+                    android:layout_weight="1" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/startTime"
+                    android:hint="00:00"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:background="@android:color/transparent"
+                    android:padding="10dp"
+                    android:singleLine="true"
+                    android:layout_weight="1"/>
+
+                </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/endTime"
-                android:hint="End Time"
-                android:background="@android:color/transparent"
-                android:padding="10dp"
-                android:singleLine="true"/>
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/endTimeText"
+                    android:hint="End Time"
+                    android:clickable="false"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:background="@android:color/transparent"
+                    android:padding="10dp"
+                    android:singleLine="true"
+                    android:layout_weight="1" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/endTime"
+                    android:hint="00:00"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:background="@android:color/transparent"
+                    android:padding="10dp"
+                    android:singleLine="true"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
 
         </LinearLayout>
     </LinearLayout>
@@ -196,7 +244,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create"
+        android:text="Save"
         android:id="@+id/create"
         android:layout_gravity="center_horizontal"/>
 

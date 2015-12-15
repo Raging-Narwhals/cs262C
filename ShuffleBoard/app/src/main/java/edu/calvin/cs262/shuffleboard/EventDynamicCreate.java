@@ -99,13 +99,13 @@ public class EventDynamicCreate extends Fragment {
         timesPerWeek = (EditText) myView.findViewById(R.id.timesPerWeek);
 
         // Define variables to access the day checkboxes
-        dayCheckBoxes[0] = (CheckBox) myView.findViewById(R.id.SundayCheckBox);
-        dayCheckBoxes[1] = (CheckBox) myView.findViewById(R.id.MondayCheckBox);
-        dayCheckBoxes[2] = (CheckBox) myView.findViewById(R.id.TuesdayCheckBox);
-        dayCheckBoxes[3] = (CheckBox) myView.findViewById(R.id.WednesdayCheckBox);
-        dayCheckBoxes[4] = (CheckBox) myView.findViewById(R.id.ThursdayCheckBox);
-        dayCheckBoxes[5] = (CheckBox) myView.findViewById(R.id.FridayCheckBox);
-        dayCheckBoxes[6] = (CheckBox) myView.findViewById(R.id.SaturdayCheckBox);
+        dayCheckBoxes[0] = (CheckBox) myView.findViewById(R.id.sundayCheckBox);
+        dayCheckBoxes[1] = (CheckBox) myView.findViewById(R.id.mondayCheckBox);
+        dayCheckBoxes[2] = (CheckBox) myView.findViewById(R.id.tuesdayCheckBox);
+        dayCheckBoxes[3] = (CheckBox) myView.findViewById(R.id.wednesdayCheckBox);
+        dayCheckBoxes[4] = (CheckBox) myView.findViewById(R.id.thursdayCheckBox);
+        dayCheckBoxes[5] = (CheckBox) myView.findViewById(R.id.fridayCheckBox);
+        dayCheckBoxes[6] = (CheckBox) myView.findViewById(R.id.saturdayCheckBox);
 
         // Create button
         createButton = (Button) myView.findViewById(R.id.create);

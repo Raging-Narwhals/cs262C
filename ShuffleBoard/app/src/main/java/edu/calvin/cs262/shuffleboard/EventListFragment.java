@@ -147,9 +147,9 @@ public class EventListFragment extends Fragment {
                             events[4].charAt(5)=='1', events[4].charAt(6)=='1'};
                     try {
                         newEvent = new StaticEvent(Integer.parseInt(events[2]), Integer.parseInt(events[3]), events[1], 1, days);
-                        //TODO add the new event to the listview
+                        // Add the new event to the listview
                         myEvents.add(newEvent.toString());
-                        //myEvents.add(events[1] + "\n");
+                        staticEventIDs.add(events[0]);
                     } catch (Exception e) {
 
                     }
@@ -162,6 +162,16 @@ public class EventListFragment extends Fragment {
                         android.R.layout.simple_list_item_1,
                         myEvents);
                 eventList.setAdapter(myAdapter);
+
+                eventList.setClickable(true);
+                eventList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                    @Override
+                    public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+                        ScheduleFragment sched = (ScheduleFragment) getParentFragment();
+                        sched.editStatic(Integer.parseInt(staticEventIDs.get(position)), (String) arg0.getItemAtPosition(position));
+                    }
+                });
 
             } else result = "uhoh";
         }
@@ -261,27 +271,6 @@ public class EventListFragment extends Fragment {
                     public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
                         ScheduleFragment sched = (ScheduleFragment) getParentFragment();
                         sched.editDynamic(Integer.parseInt(dynamicEventIDs.get(position)), (String) arg0.getItemAtPosition(position));
-                       /* int eventID = Integer.parseInt(dynamicEventIDs.get(position));
-                        EventDynamicCreate frag = new EventDynamicCreate();
-
-                        //Bundle the event info
-                        String eventInfo = (String) arg0.getItemAtPosition(position);
-                        String[] eventInfoArray = eventInfo.split("\n");
-                        Bundle bundle = new Bundle();
-                        bundle.putInt("id", eventID);
-                        bundle.putString("times", eventInfoArray[2].split(" ")[1]);
-                        bundle.putString("duration", eventInfoArray[1].split(" ")[1]);
-                        bundle.putString("name", eventInfoArray[0]);
-                        frag.setArguments(bundle);
-                        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-
-                        // Replace whatever is in the flContent view with this fragment,
-                        // and add the transaction to the back stack so the user can navigate back
-                        transaction.replace(R.id.flContent, frag);
-                        transaction.addToBackStack("back");
-
-                        // Commit the transaction
-                        transaction.commit();*/
                     }
                 });
 

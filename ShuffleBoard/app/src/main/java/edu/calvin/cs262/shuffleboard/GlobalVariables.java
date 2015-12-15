@@ -5,7 +5,7 @@ package edu.calvin.cs262.shuffleboard;
  */
 public class GlobalVariables {
 
-    static String DB_BASE = "http://153.106.160.71:9999/shuffle/";
+    static String DB_BASE = "http://10.0.0.31:9999/shuffle/";
 
     public void GloblalVariables() {
 

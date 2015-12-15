@@ -93,6 +93,9 @@ public class ScheduleFragment extends Fragment {
                     transaction.commit();
                 } else {
                     EventDynamicCreate frag = new EventDynamicCreate();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("id", -1);
+                    frag.setArguments(bundle);
                     FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
                     // Replace whatever is in the flContent view with this fragment,
@@ -139,6 +142,31 @@ public class ScheduleFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
+    }
+
+    public void editStatic(int id, String eventInfo) {
+        EventStaticCreate frag = new EventStaticCreate();
+
+        //Bundle the event info
+        String[] eventInfoArray = eventInfo.split("\n");
+        Bundle bundle = new Bundle();
+        bundle.putInt("id", id);
+        String[] times = eventInfoArray[1].split(" ");
+        String start = times[0].substring(0, times[0].length() - 2);
+        String stop = times[2].substring(0,times[2].length()-2);
+        bundle.putString("start", start);
+        bundle.putString("stop", stop);
+        bundle.putString("name", eventInfoArray[0]);
+        frag.setArguments(bundle);
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+        // Replace whatever is in the flContent view with this fragment,
+        // and add the transaction to the back stack so the user can navigate back
+        transaction.replace(R.id.flContent, frag);
+        transaction.addToBackStack("back");
+
+        // Commit the transaction
+        transaction.commit();
     }
 
     public void editDynamic(int id, String eventInfo) {

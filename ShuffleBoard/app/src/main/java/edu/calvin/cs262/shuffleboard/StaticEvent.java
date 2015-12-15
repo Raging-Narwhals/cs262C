@@ -134,7 +134,7 @@ public class StaticEvent {
         for (int i=0; i<=6; i++) {
             ret += (days[i] ? "1" : "0");
         }
-        ret += "__" + name;
+        ret += "__" + name.replace(" ", "%20");
         return ret;
     }
 

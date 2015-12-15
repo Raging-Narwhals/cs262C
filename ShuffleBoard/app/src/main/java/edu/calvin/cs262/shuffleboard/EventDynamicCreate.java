@@ -176,7 +176,7 @@ public class EventDynamicCreate extends Fragment {
                     transaction.commit();
 
                     // also supports Toast.LENGTH_LONG
-                    Toast.makeText(getContext(), "Dynamic Event created", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Dynamic Event edited", Toast.LENGTH_SHORT).show();
                 }
             });
         }

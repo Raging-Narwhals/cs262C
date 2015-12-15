@@ -48,6 +48,7 @@ public class EventStaticCreate extends Fragment {
     View me;
     String DB_BASE = new GlobalVariables().DB_BASE;
 
+    int eventID = -1;
     StaticEvent newEvent;
     Button createButton;
     EditText name, startTime, endTime;
@@ -105,46 +106,94 @@ public class EventStaticCreate extends Fragment {
         dayCheckBoxes[5] = (CheckBox) myView.findViewById(R.id.fridayCheckBox);
         dayCheckBoxes[6] = (CheckBox) myView.findViewById(R.id.saturdayCheckBox);
 
+        eventID = getArguments().getInt("id");
+
         // Create button
         createButton = (Button) myView.findViewById(R.id.create);
         // onClick for the create button
-        createButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String[] start = startTime.getText().toString().split(":");
-                String[] end = endTime.getText().toString().split(":");
-                int startVal = (Integer.valueOf(start[1]) >= 15) ? ((Integer.valueOf(start[1]) < 45) ? 1 : 2) : 0;
-                int endVal = (Integer.valueOf(end[1]) >= 15) ? ((Integer.valueOf(end[1]) < 45) ? 1 : 2) : 0;
-                int startNum = 2*Integer.valueOf(start[0]) + startVal;
-                int endNum = 2*Integer.valueOf(end[0]) + endVal;
-                if (validate(startNum, endNum))
-                {
-                    boolean[] setDays = new boolean[7];
-                    for (int i=0; i < 7; i++) {
-                        setDays[i] = dayCheckBoxes[i].isChecked();
+        if (eventID==-1) {
+            createButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String[] start = startTime.getText().toString().split(":");
+                    String[] end = endTime.getText().toString().split(":");
+                    int startVal = (Integer.valueOf(start[1]) >= 15) ? ((Integer.valueOf(start[1]) < 45) ? 1 : 2) : 0;
+                    int endVal = (Integer.valueOf(end[1]) >= 15) ? ((Integer.valueOf(end[1]) < 45) ? 1 : 2) : 0;
+                    int startNum = 2 * Integer.valueOf(start[0]) + startVal;
+                    int endNum = 2 * Integer.valueOf(end[0]) + endVal;
+                    if (validate(startNum, endNum)) {
+                        boolean[] setDays = new boolean[7];
+                        for (int i = 0; i < 7; i++) {
+                            setDays[i] = dayCheckBoxes[i].isChecked();
+                        }
+
+                        newEvent = new StaticEvent(startNum, endNum, name.getText().toString(),
+                                0, setDays);
+
+                        new CreateStaticEvent().execute();
                     }
 
-                    newEvent = new StaticEvent(startNum, endNum, name.getText().toString(),
-                            0, setDays);
+                    // Go back to the StaticEvent fragment
+                    ScheduleFragment frag = new ScheduleFragment();
+                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                    // Replace whatever is in the flContent view with this fragment,
+                    // and add the transaction to the back stack so the user can navigate back
+                    transaction.replace(R.id.flContent, frag);
+                    //transaction.addToBackStack(null);
+                    // Commit the transaction
 
-                    new CreateStaticEvent().execute();
+                    transaction.commit();
+
+                    // also supports Toast.LENGTH_LONG
+                    Toast.makeText(getContext(), "Static Event created", Toast.LENGTH_SHORT).show();
                 }
+            });
+        } else {
 
-                // Go back to the StaticEvent fragment
-                ScheduleFragment frag = new ScheduleFragment();
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                // Replace whatever is in the flContent view with this fragment,
-                // and add the transaction to the back stack so the user can navigate back
-                transaction.replace(R.id.flContent, frag);
-                //transaction.addToBackStack(null);
-                // Commit the transaction
+            String eventStart = getArguments().getString("start");
+            startTime.setText(eventStart);
+            String eventStop = getArguments().getString("stop");
+            endTime.setText(eventStop);
+            String eventName = getArguments().getString("name");
+            name.setText(eventName);
 
-                transaction.commit();
+            createButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String[] start = startTime.getText().toString().split(":");
+                    String[] end = endTime.getText().toString().split(":");
+                    int startVal = (Integer.valueOf(start[1]) >= 15) ? ((Integer.valueOf(start[1]) < 45) ? 1 : 2) : 0;
+                    int endVal = (Integer.valueOf(end[1]) >= 15) ? ((Integer.valueOf(end[1]) < 45) ? 1 : 2) : 0;
+                    int startNum = 2 * Integer.valueOf(start[0]) + startVal;
+                    int endNum = 2 * Integer.valueOf(end[0]) + endVal;
+                    if (validate(startNum, endNum)) {
+                        boolean[] setDays = new boolean[7];
+                        for (int i = 0; i < 7; i++) {
+                            setDays[i] = dayCheckBoxes[i].isChecked();
+                        }
 
-                // also supports Toast.LENGTH_LONG
-                Toast.makeText(getContext(), "Static Event created", Toast.LENGTH_SHORT).show();
-            }
-        });
+                        newEvent = new StaticEvent(startNum, endNum, name.getText().toString(),
+                                0, setDays);
+
+                        new EditStaticEvent().execute();
+                    }
+
+                    // Go back to the StaticEvent fragment
+                    ScheduleFragment frag = new ScheduleFragment();
+                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                    // Replace whatever is in the flContent view with this fragment,
+                    // and add the transaction to the back stack so the user can navigate back
+                    transaction.replace(R.id.flContent, frag);
+                    //transaction.addToBackStack(null);
+                    // Commit the transaction
+
+                    transaction.commit();
+
+                    // also supports Toast.LENGTH_LONG
+                    Toast.makeText(getContext(), "Static Event edited", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
 
         return myView;
     }
@@ -227,6 +276,73 @@ public class EventStaticCreate extends Fragment {
             HttpContext localContext = new BasicHttpContext();
             String go = USERNAME_URI + "1/events/static/addLong/" + newEvent.toDB();
             HttpPut httpPut = new HttpPut(USERNAME_URI + "1/events/static/addLong/" + newEvent.toDB());
+            String text = null;
+            try {
+                httpPut.setEntity(new StringEntity(newEvent.toString()));
+                HttpResponse response = httpClient.execute(httpPut, localContext);
+                HttpEntity entity = response.getEntity();
+                text = getASCIIContentFromEntity(entity);
+            } catch (Exception e) {
+                return e.getLocalizedMessage();
+            }
+            return text;
+        }
+
+        /**
+         * The method runs before the others.
+         */
+        protected void onPreExecute() {
+        }
+
+        /**
+         * The method takes the results of the request, when they arrive, and updates the interface.
+         *
+         * @param results
+         */
+        protected void onPostExecute(String results) {
+            if (results != null) {
+            } else result = "uhoh";
+        }
+
+    }
+
+    private class EditStaticEvent extends AsyncTask<Void, Void, String> {
+
+        private final String USERNAME_URI = DB_BASE + "user/";
+        String result;
+
+        /**
+         * This method extracts text from the HTTP response entity.
+         *
+         * @param entity
+         * @return
+         * @throws IllegalStateException
+         * @throws IOException
+         */
+        protected String getASCIIContentFromEntity(HttpEntity entity) throws IllegalStateException, IOException {
+            InputStream in = entity.getContent();
+            StringBuffer out = new StringBuffer();
+            int n = 1;
+            while (n > 0) {
+                byte[] b = new byte[4096];
+                n = in.read(b);
+                if (n > 0) out.append(new String(b, 0, n));
+            }
+            return out.toString();
+        }
+
+        /**
+         * This method issues the HTTP GET request.
+         *
+         * @param params
+         * @return
+         */
+        @Override
+        protected String doInBackground(Void... params) {
+            HttpClient httpClient = new DefaultHttpClient();
+            HttpContext localContext = new BasicHttpContext();
+            String go = USERNAME_URI + "1/events/static/addLong/" + newEvent.toDB();
+            HttpPut httpPut = new HttpPut(USERNAME_URI + "1/events/static/edit/" + eventID + "/" + newEvent.toDB());
             String text = null;
             try {
                 httpPut.setEntity(new StringEntity(newEvent.toString()));

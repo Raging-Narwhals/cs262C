@@ -10,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -33,6 +32,11 @@ public class MainActivity extends AppCompatActivity {
 
         // Tie DrawerLayout events to the ActionBarToggle
         mDrawer.setDrawerListener(drawerToggle);
+
+        //Initialize the current calendar
+        CustomCalendar myCalendar = new CustomCalendar();
+        myCalendar.getStatics();
+        myCalendar.getDynamics();
 
         // Check whether the activity is using the layout version with
         // the flContent FrameLayout. If so, we must add the first fragment
@@ -86,7 +90,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void goToCalendar(MenuItem item) {
         // Create an instance of Fragment
-        CalendarFragment frag = new CalendarFragment();
+        //CalendarFragment frag = new CalendarFragment();
+        LoadingFragment frag = new LoadingFragment();
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 

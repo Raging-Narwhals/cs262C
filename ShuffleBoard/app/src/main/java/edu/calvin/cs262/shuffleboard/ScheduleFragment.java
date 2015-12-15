@@ -82,6 +82,9 @@ public class ScheduleFragment extends Fragment {
             public void onClick(View v) {
                 if (tabLayout.getSelectedTabPosition() == 0) {
                     EventStaticCreate frag = new EventStaticCreate();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("id", -1);
+                    frag.setArguments(bundle);
                     FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
                     // Replace whatever is in the flContent view with this fragment,

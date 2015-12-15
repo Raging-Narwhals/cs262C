@@ -1,31 +1,18 @@
 package edu.calvin.cs262.shuffleboard;
 
+import android.graphics.Color;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.protocol.BasicHttpContext;
-import org.apache.http.protocol.HttpContext;
-
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
-
 
 public class CalendarFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
@@ -39,7 +26,7 @@ public class CalendarFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    String DB_BASE = new GlobalVariables().DB_BASE;
+    RelativeLayout[] week = new RelativeLayout[7];
 
     /**
      * Use this factory method to create a new instance of
@@ -89,7 +76,45 @@ public class CalendarFragment extends Fragment {
             }
         }, 250); // 250 ms delay
 
-        RelativeLayout sunday = (RelativeLayout) myView.findViewById(R.id.sundayRelativeLayout);
+
+        week[0] = (RelativeLayout) myView.findViewById(R.id.sundayRelativeLayout);
+        week[1] = (RelativeLayout) myView.findViewById(R.id.mondayRelativeLayout);
+        week[2] = (RelativeLayout) myView.findViewById(R.id.tuesdayRelativeLayout);
+        week[3] = (RelativeLayout) myView.findViewById(R.id.wednesdayRelativeLayout);
+        week[4] = (RelativeLayout) myView.findViewById(R.id.thursdayRelativeLayout);
+        week[5] = (RelativeLayout) myView.findViewById(R.id.fridayRelativeLayout);
+        week[6] = (RelativeLayout) myView.findViewById(R.id.saturdayRelativeLayout);
+
+        String results = getArguments().getString("results");
+        String resultStatic = results.split("_______")[0];
+        String[] eventslist = resultStatic.split("___");
+        ArrayList<String> myEventsStatic = new ArrayList<String>();
+        for (int i = 0; i < eventslist.length; i++) {
+            String[] events = eventslist[i].split("__");
+            boolean[] days = {events[4].charAt(0)=='1', events[4].charAt(1)=='1', events[4].charAt(2)=='1', events[4].charAt(3)=='1', events[4].charAt(4)=='1',
+                    events[4].charAt(5)=='1', events[4].charAt(6)=='1'};
+            try {
+                myEventsStatic.add(new StaticEvent(Integer.parseInt(events[2]), Integer.parseInt(events[3]), events[1], 1, days).toDB());
+            } catch (Exception e) {
+
+            }
+        }
+
+        String resultDynamic = results.split("_______")[1];
+        eventslist = resultDynamic.split("___");
+        ArrayList<String> myEventsDynamic = new ArrayList<String>();
+        for (int i = 0; i < eventslist.length; i++) {
+            String[] events = eventslist[i].split("__");
+            boolean[] days = {events[4].charAt(0)=='1', events[4].charAt(1)=='1', events[4].charAt(2)=='1', events[4].charAt(3)=='1', events[4].charAt(4)=='1',
+                    events[4].charAt(5)=='1', events[4].charAt(6)=='1'};
+            try {
+                myEventsDynamic.add(new DynamicEvent(Integer.parseInt(events[2]), Double.parseDouble(events[3]), events[1], 1).toDB());
+            } catch (Exception e) {
+
+            }
+        }
+
+        shuffle(myEventsStatic, myEventsDynamic);
 
         return myView;
     }
@@ -101,17 +126,6 @@ public class CalendarFragment extends Fragment {
         }
     }
 
-    /*    @Override
-        public void onAttach(Activity activity) {
-            super.onAttach(activity);
-            try {
-                mListener = (OnFragmentInteractionListener) activity;
-            } catch (ClassCastException e) {
-                throw new ClassCastException(activity.toString()
-                        + " must implement OnFragmentInteractionListener");
-            }
-        }
-    */
     @Override
     public void onDetach() {
         super.onDetach();
@@ -133,188 +147,52 @@ public class CalendarFragment extends Fragment {
         public void onFragmentInteraction(Uri uri);
     }
 
-    private class GetStaticEvents extends AsyncTask<Void, Void, String> {
-
-        private final String USERNAME_URI = DB_BASE + "user/";
-        String result;
-
-        /**
-         * This method extracts text from the HTTP response entity.
-         *
-         * @param entity
-         * @return
-         * @throws IllegalStateException
-         * @throws IOException
-         */
-        protected String getASCIIContentFromEntity(HttpEntity entity) throws IllegalStateException, IOException {
-            InputStream in = entity.getContent();
-            StringBuffer out = new StringBuffer();
-            int n = 1;
-            while (n > 0) {
-                byte[] b = new byte[4096];
-                n = in.read(b);
-                if (n > 0) out.append(new String(b, 0, n));
-            }
-            return out.toString();
-        }
-
-        /**
-         * This method issues the HTTP GET request.
-         *
-         * @param params
-         * @return
-         */
-        @Override
-        protected String doInBackground(Void... params) {
-            HttpClient httpClient = new DefaultHttpClient();
-            HttpContext localContext = new BasicHttpContext();
-            HttpGet httpGet = new HttpGet(USERNAME_URI + "1/events/static");
-            String text = null;
-            try {
-                HttpResponse response = httpClient.execute(httpGet, localContext);
-                HttpEntity entity = response.getEntity();
-                text = getASCIIContentFromEntity(entity);
-            } catch (Exception e) {
-                return e.getLocalizedMessage();
-            }
-            return text;
-        }
-
-        /**
-         * The method runs before the others.
-         */
-        protected void onPreExecute() {
-        }
-
-        /**
-         * The method takes the results of the request, when they arrive, and updates the interface.
-         *
-         * @param results
-         */
-        protected void onPostExecute(String results) {
-            if (results != null) {
-                //       id  event st  sp  days
-                //result=1||Lunch||28||32||1000100|||...
-                result = results;
-                String[] eventslist = result.split("___");
-                String[] events;
-                ArrayList<String> myEvents = new ArrayList<String>();
-                StaticEvent newEvent;
-                for (int i = 0; i < eventslist.length; i++) {
-                    events = eventslist[i].split("__");
-                    boolean[] days = {events[4].charAt(0)=='1', events[4].charAt(1)=='1', events[4].charAt(2)=='1', events[4].charAt(3)=='1', events[4].charAt(4)=='1',
-                            events[4].charAt(5)=='1', events[4].charAt(6)=='1'};
-                    try {
-                        newEvent = new StaticEvent(Integer.parseInt(events[2]), Integer.parseInt(events[3]), events[1], 1, days);
-                        //TODO add the new event to the listview
-                        myEvents.add(newEvent.toString());
-                        //myEvents.add(events[1] + "\n");
-                    } catch (Exception e) {
-
-                    }
+    public void shuffle(ArrayList<String> myEventsStatic, ArrayList<String> myEventsDynamic) {
+        for (int i = 0; i < myEventsStatic.size(); i++) {
+            String[] event = myEventsStatic.get(i).split("__");
+            for (int j = 0; j < 7; j++) {
+                if (event[2].charAt(j) == '1') {
+                    EditText newText = new EditText(getContext());
+                    newText.setMaxLines(1);
+                    newText.setSingleLine();
+                    newText.setTextSize(20);
+                    newText.setText(event[3].replace("%20", " "));
+                    newText.setBackgroundColor(Color.RED);
+                    newText.setClickable(false);
+                    newText.setFocusable(false);
+                    newText.setCursorVisible(false);
+                    newText.setPadding(0,5,0,5);
+                    int length = 30*(Integer.parseInt(event[1])-Integer.parseInt(event[0]));
+                    int offset = 30*Integer.parseInt(event[0]);
+                    RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(60, length);
+                    lp.setMargins(0, offset, 0, 0);
+                    newText.setLayoutParams(lp);
+                    week[j].addView(newText);
                 }
-/*
-                ListView eventList = (ListView) me.findViewById(R.id.listView);
-                ArrayAdapter<String> myAdapter=new
-                        ArrayAdapter<String>(
-                        getContext(),
-                        android.R.layout.simple_list_item_1,
-                        myEvents);
-                eventList.setAdapter(myAdapter);
-*/
-            } else result = "uhoh";
-        }
-
-    }
-
-    private class GetDynamicEvents extends AsyncTask<Void, Void, String> {
-
-        private final String USERNAME_URI = DB_BASE + "user/";
-        String result;
-
-        /**
-         * This method extracts text from the HTTP response entity.
-         *
-         * @param entity
-         * @return
-         * @throws IllegalStateException
-         * @throws IOException
-         */
-        protected String getASCIIContentFromEntity(HttpEntity entity) throws IllegalStateException, IOException {
-            InputStream in = entity.getContent();
-            StringBuffer out = new StringBuffer();
-            int n = 1;
-            while (n > 0) {
-                byte[] b = new byte[4096];
-                n = in.read(b);
-                if (n > 0) out.append(new String(b, 0, n));
             }
-            return out.toString();
         }
 
-        /**
-         * This method issues the HTTP GET request.
-         *
-         * @param params
-         * @return
-         */
-        @Override
-        protected String doInBackground(Void... params) {
-            HttpClient httpClient = new DefaultHttpClient();
-            HttpContext localContext = new BasicHttpContext();
-            HttpGet httpGet = new HttpGet(USERNAME_URI + "1/events/dynamic");
-            String text = null;
-            try {
-                HttpResponse response = httpClient.execute(httpGet, localContext);
-                HttpEntity entity = response.getEntity();
-                text = getASCIIContentFromEntity(entity);
-            } catch (Exception e) {
-                return e.getLocalizedMessage();
-            }
-            return text;
-        }
-
-        /**
-         * The method runs before the others.
-         */
-        protected void onPreExecute() {
-        }
-
-        /**
-         * The method takes the results of the request, when they arrive, and updates the interface.
-         *
-         * @param results
-         */
-        protected void onPostExecute(String results) {
-            if (results != null) {
-                //       id  event st  sp  days
-                //result=
-                result = results;
-                String[] eventslist = result.split("___");
-                String[] events;
-                ArrayList<String> myEvents = new ArrayList<String>();
-                DynamicEvent newEvent;
-                for (int i = 0; i < eventslist.length; i++) {
-                    events = eventslist[i].split("__");
-                    //TODO make sure this is right
-                    boolean[] days = {events[4].charAt(0)=='1', events[4].charAt(1)=='1', events[4].charAt(2)=='1', events[4].charAt(3)=='1', events[4].charAt(4)=='1',
-                            events[4].charAt(5)=='1', events[4].charAt(6)=='1'};
-                    newEvent = new DynamicEvent(Integer.parseInt(events[2]), Double.parseDouble(events[3]), events[1], 1);
-                    //TODO add the new event to the listview
-                    myEvents.add(newEvent.toString());
+        for (int i = 0; i < myEventsDynamic.size(); i++) {
+            String[] event = myEventsDynamic.get(i).split("__");
+            for (int j = 0; j < 7; j++) {
+                if (event[2].charAt(j) == '1') {
+                    EditText newText = new EditText(getContext());
+                    newText.setMaxLines(1);
+                    newText.setText(event[3].replace("%20", " "));
+                    newText.setBackgroundColor(Color.BLUE);
+                    newText.setClickable(false);
+                    newText.setFocusable(false);
+                    newText.setCursorVisible(false);
+                    newText.setPadding(0,5,0,5);
+                    int length = 30*Integer.parseInt(event[1]);
+                    int offset = 30*Integer.parseInt(event[0]);
+                    RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(60, length);
+                    lp.setMargins(0, offset, 0, 0);
+                    newText.setLayoutParams(lp);
+                    week[j].addView(newText);
                 }
-/*
-                ListView eventList = (ListView) me.findViewById(R.id.listView);
-                ArrayAdapter<String> myAdapter=new
-                        ArrayAdapter<String>(
-                        getContext(),
-                        android.R.layout.simple_list_item_1,
-                        myEvents);
-                eventList.setAdapter(myAdapter);
-*/
-            } else result = "uhoh";
+            }
         }
-
     }
 
 }

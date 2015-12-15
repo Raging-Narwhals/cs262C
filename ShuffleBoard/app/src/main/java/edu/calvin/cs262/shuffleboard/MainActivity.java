@@ -180,12 +180,4 @@ public class MainActivity extends AppCompatActivity {
         Intent webIntent = new Intent(Intent.ACTION_VIEW, webpage);
         startActivity(webIntent);
     }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        // Do extra stuff here
-
-        setTitle(R.string.app_name);
-    }
 }

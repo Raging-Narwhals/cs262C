@@ -341,8 +341,8 @@ public class EventStaticCreate extends Fragment {
         protected String doInBackground(Void... params) {
             HttpClient httpClient = new DefaultHttpClient();
             HttpContext localContext = new BasicHttpContext();
-            String go = USERNAME_URI + "1/events/static/addLong/" + newEvent.toDB();
-            HttpPut httpPut = new HttpPut(USERNAME_URI + "1/events/static/edit/" + eventID + "/" + newEvent.toDB());
+            String request = USERNAME_URI + "1/events/static/edit/" + eventID + "/" + newEvent.toDB();
+            HttpPut httpPut = new HttpPut(request);
             String text = null;
             try {
                 httpPut.setEntity(new StringEntity(newEvent.toString()));

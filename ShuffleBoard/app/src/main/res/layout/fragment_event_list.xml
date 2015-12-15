@@ -9,5 +9,7 @@
     android:headerDividersEnabled="false"
     android:textFilterEnabled="false"
     android:divider="@android:color/darker_gray"
-    android:dividerHeight="1dp" >
+    android:dividerHeight="1dp"
+    android:paddingBottom="3dp"
+    android:paddingTop="3dp">
 </ListView>

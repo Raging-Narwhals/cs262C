@@ -91,6 +91,7 @@ public class ScheduleFragment extends Fragment {
 
                     // Commit the transaction
                     transaction.commit();
+                    getActivity().setTitle("New Fixed Event");
                 } else {
                     EventDynamicCreate frag = new EventDynamicCreate();
                     Bundle bundle = new Bundle();
@@ -105,6 +106,7 @@ public class ScheduleFragment extends Fragment {
 
                     // Commit the transaction
                     transaction.commit();
+                    getActivity().setTitle("New Flexible Event");
                 }
 
 
@@ -153,7 +155,9 @@ public class ScheduleFragment extends Fragment {
         bundle.putInt("id", id);
         String[] times = eventInfoArray[1].split(" ");
         String start = times[0].substring(0, times[0].length() - 2);
+        start = (times[0].contains("AM") ? start.split(":")[0] : Integer.toString(Integer.parseInt(start.split(":")[0]) + 12)) + ":" + start.split(":")[1];
         String stop = times[2].substring(0,times[2].length()-2);
+        stop = (times[2].contains("AM") ? stop.split(":")[0] : Integer.toString(Integer.parseInt(stop.split(":")[0]) + 12)) + ":" + stop.split(":")[1];
         bundle.putString("start", start);
         bundle.putString("stop", stop);
         bundle.putString("name", eventInfoArray[0]);
@@ -190,5 +194,4 @@ public class ScheduleFragment extends Fragment {
         // Commit the transaction
         transaction.commit();
     }
-
 }

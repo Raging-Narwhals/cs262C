@@ -1,5 +1,6 @@
 package edu.calvin.cs262.shuffleboard;
 
+import android.app.TimePickerDialog;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import org.apache.http.HttpEntity;
@@ -27,7 +29,10 @@ import org.apache.http.protocol.HttpContext;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 
 /**
@@ -53,6 +58,7 @@ public class EventStaticCreate extends Fragment {
     Button createButton;
     EditText name, startTime, endTime;
     CheckBox[] dayCheckBoxes = new CheckBox[7];
+    NumberFormat f = new DecimalFormat("00");
 
     /**
      * Use this factory method to create a new instance of
@@ -83,11 +89,13 @@ public class EventStaticCreate extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         View myView = inflater.inflate(R.layout.fragment_event_static_create, container, false);
         me = myView;
@@ -96,6 +104,47 @@ public class EventStaticCreate extends Fragment {
         name = (EditText) myView.findViewById(R.id.name);
         startTime = (EditText) myView.findViewById(R.id.startTime);
         endTime = (EditText) myView.findViewById(R.id.endTime);
+
+        startTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        startTime.setText( selectedHour + ":" + f.format(selectedMinute));
+                    }
+                }, hour, minute, true);//Yes 24 hour time
+                mTimePicker.setTitle("Select Start Time");
+                mTimePicker.show();
+
+            }
+        });
+
+        endTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        endTime.setText( selectedHour + ":" + f.format(selectedMinute));
+                    }
+                }, hour, minute, true);//Yes 24 hour time
+                mTimePicker.setTitle("Select End Time");
+                mTimePicker.show();
+
+            }
+        });
+
 
         // Define variables to access the day checkboxes
         dayCheckBoxes[0] = (CheckBox) myView.findViewById(R.id.sundayCheckBox);

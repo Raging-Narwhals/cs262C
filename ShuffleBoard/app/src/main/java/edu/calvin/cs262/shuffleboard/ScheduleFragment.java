@@ -73,6 +73,7 @@ public class ScheduleFragment extends Fragment {
         viewPager.setAdapter(new EventsPagerAdapter
                 (getChildFragmentManager()));
 
+
         // Give the TabLayout the ViewPager
         final TabLayout tabLayout = (TabLayout) myView.findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(viewPager);

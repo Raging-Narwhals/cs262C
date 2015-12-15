@@ -176,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void goToHelp(MenuItem item) {
-        Uri webpage = Uri.parse("https://github.com/Raging-Narwhals/cs262C/wiki");
+        Uri webpage = Uri.parse("http://github.com/Raging-Narwhals/cs262C/wiki/FAQ");
         Intent webIntent = new Intent(Intent.ACTION_VIEW, webpage);
         startActivity(webIntent);
     }

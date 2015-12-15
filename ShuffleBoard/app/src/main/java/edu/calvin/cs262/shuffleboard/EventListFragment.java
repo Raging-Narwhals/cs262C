@@ -4,12 +4,14 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -22,6 +24,7 @@ import org.apache.http.protocol.HttpContext;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.logging.Handler;
 
 /**
  * Fragment that will hold the Static and Dynamic EventList views
@@ -48,6 +51,8 @@ public class EventListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPage = getArguments().getInt(ARG_PAGE);
+
+
 
     }
 
@@ -278,5 +283,4 @@ public class EventListFragment extends Fragment {
         }
 
     }
-
 }

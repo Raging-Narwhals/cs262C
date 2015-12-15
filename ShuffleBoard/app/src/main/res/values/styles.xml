@@ -14,4 +14,8 @@
         <item name="android:layout_marginTop">20dp</item>
         <item name="android:layout_marginBottom">20dp</item>
     </style>
+
+    <color name="refresh_progress_1">#512DA8</color>
+    <color name="refresh_progress_2">#311B92</color>
+    <color name="refresh_progress_3">#9575CD</color>
 </resources>
